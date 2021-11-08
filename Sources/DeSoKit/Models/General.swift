@@ -14,9 +14,13 @@ public extension DeSoKit.Api.General.ExchangeRate {
     
     struct Response: Codable {
         
-        public let SatoshisPerDeSoExchangeRate: UInt64
-        public let NanosSold: UInt64
-        public let USDCentsPerBitcoinExchangeRate: UInt64
+        public let satoshisPerDeSoExchangeRate: UInt64
+        public let nanosSold: UInt64
+        
+        let uSDCentsPerBitcoinExchangeRate: UInt64
+        public var usdCentsPerBitcoinExchangeRate: UInt64 { // Vanity property :)
+            return uSDCentsPerBitcoinExchangeRate
+        }
         
     }
     
@@ -26,25 +30,30 @@ public extension DeSoKit.Api.General.AppState {
     
     struct Response: Codable {
         
-        public let AmplitudeKey: String
-        public let AmplitudeDomain: String
-        public let MinSatoshisBurnedForProfileCreation: UInt64
-        public let BlockHeight: UInt32
-        public let IsTestnet: Bool
-        public let SupportEmail: String
-        public let ShowProcessingSpinners: Bool
-        public let HasStarterDeSoSeed: Bool
-        public let HasTwilioAPIKey: Bool
-        public let CreateProfileFeeNanos: UInt64
-        public let CompProfileCreation: Bool
-        public let DiamondLevelMap: [String: UInt64]
-        public let HasWyreIntegration: Bool
-        public let HasJumioIntegration: Bool
-        public let BuyWithETH: Bool
-        public let USDCentsPerDeSoExchangeRate: UInt64
-        public let JumioDeSoNanos: UInt64
+        public let amplitudeKey: String
+        public let amplitudeDomain: String
+        public let minSatoshisBurnedForProfileCreation: UInt64
+        public let blockHeight: UInt32
+        public let isTestnet: Bool
+        public let supportEmail: String
+        public let showProcessingSpinners: Bool
+        public let hasStarterDeSoSeed: Bool
+        public let hasTwilioAPIKey: Bool
+        public let createProfileFeeNanos: UInt64
+        public let compProfileCreation: Bool
+        public let diamondLevelMap: [String: UInt64]
+        public let hasWyreIntegration: Bool
+        public let hasJumioIntegration: Bool
+        public let buyWithETH: Bool
+        
+        let uSDCentsPerDeSoExchangeRate: UInt64
+        public var usdCentsPerDeSoExchangeRate: UInt64 {  // Vanity property :)
+            return uSDCentsPerDeSoExchangeRate
+        }
+        
+        public let jumioDeSoNanos: UInt64
         //public let TransactionFeeMap: [String: []] // TODO:
-        public let BuyETHAddress: String
+        public let buyETHAddress: String
     }
     
 }

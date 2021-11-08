@@ -13,32 +13,32 @@ public extension DeSoKit.Api.Post {
     
     class PostEntry: Codable { // Only a class because some properties are of same type which is not allowed on struct
         
-        public let PostHashHex: String
-        public let PosterPublicKeyBase58Check: String
-        public let ParentStakeID: String
-        public let Body: String
-        public let ImageURLs: [String]
-        public let RecloutedPostEntryResponse: PostEntry
-        public let CreatorBasisPoints: UInt64
-        public let StakeMultipleBasisPoints: UInt64
-        public let TimestampNanos: UInt64
-        public let IsHidden: Bool
-        public let ConfirmationBlockHeight: UInt32
-        public let InMempool: Bool
+        public let postHashHex: String
+        public let posterPublicKeyBase58Check: String
+        public let parentStakeID: String
+        public let body: String
+        public let imageURLs: [String]
+        public let recloutedPostEntryResponse: PostEntry
+        public let creatorBasisPoints: UInt64
+        public let stakeMultipleBasisPoints: UInt64
+        public let timestampNanos: UInt64
+        public let isHidden: Bool
+        public let confirmationBlockHeight: UInt32
+        public let inMempool: Bool
 //        StakeEntry                 *StakeEntryResponse
 //        StakeEntryStats            *lib.StakeEntryStats
 //        ProfileEntryResponse *ProfileEntryResponse
-        public let Comments: [PostEntry]
-        public let LikeCount: UInt64
-        public let DiamondCount: UInt64
+        public let comments: [PostEntry]
+        public let likeCount: UInt64
+        public let diamondCount: UInt64
         //PostEntryReaderState *lib.PostEntryReaderState
-        public let InGlobalFeed: Bool// *bool `json:",omitempty"`
-        public let IsPinned: Bool// *bool `json:",omitempty"`
-        public let PostExtraData: [String: String]// map[string]string
-        public let CommentCount: UInt64
-        public let RecloutCount: UInt64
-        public let ParentPosts: [PostEntry]
-        public let DiamondsFromSender: UInt64
+        public let inGlobalFeed: Bool// *bool `json:",omitempty"`
+        public let isPinned: Bool// *bool `json:",omitempty"`
+        public let postExtraData: [String: String]// map[string]string
+        public let commentCount: UInt64
+        public let recloutCount: UInt64
+        public let parentPosts: [PostEntry]
+        public let diamondsFromSender: UInt64
         
     }
     

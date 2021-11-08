@@ -1,5 +1,4 @@
 import Foundation
-import AppKit
 
 public struct DeSoKit {
     
@@ -9,12 +8,14 @@ public struct DeSoKit {
     
     static var decoder: JSONDecoder {
         let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromPascalCase
         return decoder
     }
     
     static var encoder: JSONEncoder {
-        let decoder = JSONEncoder()
-        return decoder
+        let encoder = JSONEncoder()
+        encoder.keyEncodingStrategy = .convertToPascalCase
+        return encoder
     }
     
     public struct Api {
@@ -143,8 +144,8 @@ public struct DeSoKit {
         public struct User {
             
             public struct UsersStatlessRequest: Codable {
-                public let PublicKeysBase58Check: [String]
-                public let SkipForLeaderboard: Bool
+                public let publicKeysBase58Check: [String]
+                public let skipForLeaderboard: Bool
             }
             
             public struct UsersStatless {
@@ -179,42 +180,42 @@ public struct DeSoKit {
             public struct ProfilesRequest: Codable {
                 
                 public enum OrderBy: String, Codable {
-                    case None = ""
-                    case InfluencerStake = "influencer_stake"
-                    case InfluencerPostStake = "influencer_post_stake"
-                    case NewestLastPost = "newest_last_post"
-                    case NewestLastComment = "newest_last_comment"
+                    case none = ""
+                    case influencerStake = "influencer_stake"
+                    case influencerPostStake = "influencer_post_stake"
+                    case newestLastPost = "newest_last_post"
+                    case newestLastComment = "newest_last_comment"
                 }
                 
                 public enum ModerationType: String, Codable {
-                    case None = ""
-                    case Leaderboard = "leaderboard"
+                    case none = ""
+                    case leaderboard = "leaderboard"
                 }
                 
-                public let PublicKeyBase58Check: String
-                public let Username: String
-                public let UsernamePrefix: String
-                public let Description: String
-                public let OrderBy: OrderBy
-                public let NumToFetch: UInt32
-                public let ReaderPublicKeyBase58Check: String
-                public let ModerationType: ModerationType
-                public let FetchUsersThatHODL: Bool
-                public let AddGlobalFeedBool: Bool
+                public let publicKeyBase58Check: String
+                public let username: String
+                public let usernamePrefix: String
+                public let description: String
+                public let orderBy: OrderBy
+                public let numToFetch: UInt32
+                public let readerPublicKeyBase58Check: String
+                public let moderationType: ModerationType
+                public let fetchUsersThatHODL: Bool
+                public let addGlobalFeedBool: Bool
                 
-                public init(PublicKeyBase58Check: String = "", Username: String = "", UsernamePrefix: String = "",
-                            Description: String = "", OrderBy: OrderBy = .None, NumToFetch: UInt32 = 20, ReaderPublicKeyBase58Check: String,
-                            ModerationType: ModerationType = .None, FetchUsersThatHODL: Bool = false, AddGlobalFeedBool: Bool = false) {
-                    self.PublicKeyBase58Check = PublicKeyBase58Check
-                    self.Username = Username
-                    self.UsernamePrefix = UsernamePrefix
-                    self.Description = Description
-                    self.OrderBy = OrderBy
-                    self.NumToFetch = NumToFetch
-                    self.ReaderPublicKeyBase58Check = ReaderPublicKeyBase58Check
-                    self.ModerationType = ModerationType
-                    self.FetchUsersThatHODL = FetchUsersThatHODL
-                    self.AddGlobalFeedBool = AddGlobalFeedBool
+                public init(publicKeyBase58Check: String = "", username: String = "", usernamePrefix: String = "",
+                            description: String = "", orderBy: OrderBy = .none, numToFetch: UInt32 = 20, readerPublicKeyBase58Check: String,
+                            moderationType: ModerationType = .none, fetchUsersThatHODL: Bool = false, addGlobalFeedBool: Bool = false) {
+                    self.publicKeyBase58Check = publicKeyBase58Check
+                    self.username = username
+                    self.usernamePrefix = usernamePrefix
+                    self.description = description
+                    self.orderBy = orderBy
+                    self.numToFetch = numToFetch
+                    self.readerPublicKeyBase58Check = readerPublicKeyBase58Check
+                    self.moderationType = moderationType
+                    self.fetchUsersThatHODL = fetchUsersThatHODL
+                    self.addGlobalFeedBool = addGlobalFeedBool
                 }
             }
             
@@ -250,12 +251,12 @@ public struct DeSoKit {
             
             public struct ProfileRequest: Codable {
 
-                public let PublicKeyBase58Check: String?
-                public let Username: String?
+                public let publicKeyBase58Check: String?
+                public let username: String?
                 
-                public init(PublicKeyBase58Check: String? = "", Username: String? = "") {
-                    self.PublicKeyBase58Check = PublicKeyBase58Check
-                    self.Username = Username
+                public init(publicKeyBase58Check: String? = "", username: String? = "") {
+                    self.publicKeyBase58Check = publicKeyBase58Check
+                    self.username = username
                 }
                 
             }
@@ -292,21 +293,21 @@ public struct DeSoKit {
             
             public struct HODLersRequest: Codable {
 
-                public let PublicKeyBase58Check: String
-                public let Username: String
-                public let LastPublicKeyBase58Check: String
-                public let NumToFetch: UInt64
-                public let FetchHodlings: Bool
-                public let FetchAll: Bool
+                public let publicKeyBase58Check: String
+                public let username: String
+                public let lastPublicKeyBase58Check: String
+                public let numToFetch: UInt64
+                public let fetchHodlings: Bool
+                public let fetchAll: Bool
                 
-                public init(PublicKeyBase58Check: String = "", Username: String = "", LastPublicKeyBase58Check: String = "",
-                            NumToFetch: UInt64 = 20, FetchHodlings: Bool = false, FetchAll: Bool = false) {
-                    self.PublicKeyBase58Check = PublicKeyBase58Check
-                    self.Username = Username
-                    self.LastPublicKeyBase58Check = LastPublicKeyBase58Check
-                    self.NumToFetch = NumToFetch
-                    self.FetchHodlings = FetchHodlings
-                    self.FetchAll = FetchAll
+                public init(publicKeyBase58Check: String = "", username: String = "", lastPublicKeyBase58Check: String = "",
+                            numToFetch: UInt64 = 20, fetchHodlings: Bool = false, fetchAll: Bool = false) {
+                    self.publicKeyBase58Check = publicKeyBase58Check
+                    self.username = username
+                    self.lastPublicKeyBase58Check = lastPublicKeyBase58Check
+                    self.numToFetch = numToFetch
+                    self.fetchHodlings = fetchHodlings
+                    self.fetchAll = fetchAll
                 }
                 
             }
@@ -343,8 +344,13 @@ public struct DeSoKit {
             
             public struct DiamondsRequest: Codable {
 
-                public let PublicKeyBase58Check: String
-                public let FetchYouDiamonded: Bool
+                public let publicKeyBase58Check: String
+                public let fetchYouDiamonded: Bool
+                
+                public init(publicKeyBase58Check: String, fetchYouDiamonded: Bool) {
+                    self.publicKeyBase58Check = publicKeyBase58Check
+                    self.fetchYouDiamonded = fetchYouDiamonded
+                }
                 
             }
             
@@ -382,22 +388,22 @@ public struct DeSoKit {
                 // Either PublicKeyBase58Check or Username can be set by the client to specify
                 // which user we're obtaining follows for
                 // If both are specified, PublicKeyBase58Check will supercede
-                public let PublicKeyBase58Check: String
-                public let Username: String
-                public let GetEntriesFollowingUsername: Bool
+                public let publicKeyBase58Check: String
+                public let username: String
+                public let getEntriesFollowingUsername: Bool
                 // Public Key of the last follower / followee from the previous page
-                public let LastPublicKeyBase58Check: String
+                public let lastPublicKeyBase58Check: String
                 // Number of records to fetch
-                public let NumToFetch: UInt64
+                public let numToFetch: UInt64
                 
-                public init(PublicKeyBase58Check: String = "", Username: String = "",
-                            GetEntriesFollowingUsername: Bool = false, LastPublicKeyBase58Check: String = "",
-                            NumToFetch: UInt64 = 20) {
-                    self.PublicKeyBase58Check = PublicKeyBase58Check
-                    self.Username = Username
-                    self.GetEntriesFollowingUsername = GetEntriesFollowingUsername
-                    self.LastPublicKeyBase58Check = LastPublicKeyBase58Check
-                    self.NumToFetch = NumToFetch
+                public init(publicKeyBase58Check: String = "", username: String = "",
+                            getEntriesFollowingUsername: Bool = false, lastPublicKeyBase58Check: String = "",
+                            numToFetch: UInt64 = 20) {
+                    self.publicKeyBase58Check = publicKeyBase58Check
+                    self.username = username
+                    self.getEntriesFollowingUsername = getEntriesFollowingUsername
+                    self.lastPublicKeyBase58Check = lastPublicKeyBase58Check
+                    self.numToFetch = numToFetch
                 }
             }
             
@@ -539,4 +545,64 @@ public struct DeSoKit {
         let error: String
     }
 
+}
+
+extension JSONDecoder.KeyDecodingStrategy {
+    static var convertFromPascalCase: JSONDecoder.KeyDecodingStrategy {
+        return .custom { keys -> CodingKey in
+            guard let key = keys.last else {
+                return AnyKey.empty
+            }
+            if key.intValue != nil {
+                return key
+            }
+            return AnyKey(string: key.stringValue.firstCharLowercased())
+        }
+    }
+}
+
+extension JSONEncoder.KeyEncodingStrategy {
+    static var convertToPascalCase: JSONEncoder.KeyEncodingStrategy {
+        return .custom { keys -> CodingKey in
+            guard let key = keys.last else {
+                return AnyKey.empty
+            }
+            if key.intValue != nil {
+                return key
+            }
+            return AnyKey(string: key.stringValue.firstCharUppercased())
+        }
+    }
+}
+
+private extension String {
+    func firstCharLowercased() -> String {
+        prefix(1).lowercased() + dropFirst()
+    }
+    func firstCharUppercased() -> String {
+        prefix(1).uppercased() + dropFirst()
+    }
+}
+
+struct AnyKey: CodingKey {
+    
+    static let empty = AnyKey(string: "")
+    
+    var stringValue: String
+    var intValue: Int?
+    
+    init?(stringValue: String) {
+        self.stringValue = stringValue
+        self.intValue = nil
+    }
+    
+    init?(intValue: Int) {
+        self.stringValue = String(intValue)
+        self.intValue = intValue
+    }
+    
+    init(string: String) {
+       self.stringValue = string
+       self.intValue = nil
+   }
 }

@@ -22,72 +22,72 @@ public extension DeSoKit.Api.User {
     struct User: Codable {
         
         public enum TutorialStatus: String, Codable {
-            case EMPTY = ""
-            case STARTED = "TutorialStarted"
-            case SKIPPED = "TutorialSkipped"
-            case INVEST_OTHERS_BUY = "InvestInOthersBuyComplete"
-            case INVEST_OTHERS_SELL = "InvestInOthersSellComplete"
-            case CREATE_PROFILE = "TutorialCreateProfileComplete"
-            case INVEST_SELF = "InvestInYourselfComplete"
-            case FOLLOW_CREATORS = "FollowCreatorsComplete"
-            case DIAMOND = "GiveADiamondComplete"
-            case COMPLETE = "TutorialComplete"
+            case empty = ""
+            case started = "TutorialStarted"
+            case skipped = "TutorialSkipped"
+            case investOthersBuy = "InvestInOthersBuyComplete"
+            case investOthersSell = "InvestInOthersSellComplete"
+            case createProfile = "TutorialCreateProfileComplete"
+            case investSelf = "InvestInYourselfComplete"
+            case followCreators = "FollowCreatorsComplete"
+            case diamond = "GiveADiamondComplete"
+            case complete = "TutorialComplete"
         }
         
-        public let PublicKeyBase58Check: String
-        public let ProfileEntryResponse: ProfileEntry
+        public let publicKeyBase58Check: String
+        public let profileEntryResponse: ProfileEntry
         //Utxos               []*UTXOEntryResponse ?
-        public let BalanceNanos: UInt64
-        public let UnminedBalanceNanos: UInt64
-        public let PublicKeysBase58CheckFollowedByUser: [String]
-        public let UsersYouHODL: [BalanceEntry]
-        public let UsersWhoHODLYouCount: Int
-        public let HasPhoneNumber: Bool
-        public let CanCreateProfile: Bool
+        public let balanceNanos: UInt64
+        public let unminedBalanceNanos: UInt64
+        public let publicKeysBase58CheckFollowedByUser: [String]
+        public let usersYouHODL: [BalanceEntry]
+        public let usersWhoHODLYouCount: Int
+        public let hasPhoneNumber: Bool
+        public let canCreateProfile: Bool
         //public let BlockedPubKeys: [String: ]   map[string]struct{}
-        public let HasEmail: Bool
-        public let EmailVerified: Bool
-        public let JumioStartTime: UInt64
-        public let JumioFinishedTime: UInt64
-        public let JumioVerified: Bool
-        public let JumioReturned: Bool
-        public let IsAdmin: Bool
-        public let IsSuperAdmin: Bool
-        public let IsBlacklisted: Bool
-        public let IsGraylisted: Bool
-        public let TutorialStatus: TutorialStatus?
-        public let CreatorPurchasedInTutorialUsername: String?
-        public let CreatorCoinsPurchasedInTutorial: UInt64
-        public let MustCompleteTutorial: Bool
+        public let hasEmail: Bool
+        public let emailVerified: Bool
+        public let jumioStartTime: UInt64
+        public let jumioFinishedTime: UInt64
+        public let jumioVerified: Bool
+        public let jumioReturned: Bool
+        public let isAdmin: Bool
+        public let isSuperAdmin: Bool
+        public let isBlacklisted: Bool
+        public let isGraylisted: Bool
+        public let tutorialStatus: TutorialStatus?
+        public let creatorPurchasedInTutorialUsername: String?
+        public let creatorCoinsPurchasedInTutorial: UInt64
+        public let mustCompleteTutorial: Bool
         
     }
     
     struct ProfileEntry: Codable {
         
-        public let PublicKeyBase58Check: String
-        public let Username: String
-        public let Description: String
-        public let IsHidden: Bool
-        public let IsReserved: Bool
-        public let IsVerified: Bool
-        public let Comments: [PostEntry]?
-        public let Posts: [PostEntry]?
+        public let publicKeyBase58Check: String
+        public let username: String
+        public let description: String
+        public let isHidden: Bool
+        public let isReserved: Bool
+        public let isVerified: Bool
+        public let comments: [PostEntry]?
+        public let posts: [PostEntry]?
         //public let CoinEntry lib.CoinEntry TODO:
-        public let CoinPriceDeSoNanos: UInt64
-        public let UsersThatHODL: [BalanceEntry]?
-        public let IsFeaturedTutorialWellKnownCreator: Bool
-        public let IsFeaturedTutorialUpAndComingCreator: Bool
+        public let coinPriceDeSoNanos: UInt64
+        public let usersThatHODL: [BalanceEntry]?
+        public let isFeaturedTutorialWellKnownCreator: Bool
+        public let isFeaturedTutorialUpAndComingCreator: Bool
         
     }
     
     struct BalanceEntry: Codable {
         
-        public let HODLerPublicKeyBase58Check: String
-        public let CreatorPublicKeyBase58Check: String
-        public let HasPurchased: Bool
-        public let BalanceNanos: UInt64
-        public let NetBalanceInMempool: UInt64
-        public let ProfileEntryResponse: ProfileEntry
+        public let hODLerPublicKeyBase58Check: String
+        public let creatorPublicKeyBase58Check: String
+        public let hasPurchased: Bool
+        public let balanceNanos: UInt64
+        public let netBalanceInMempool: UInt64
+        public let profileEntryResponse: ProfileEntry
         
     }
     
@@ -97,9 +97,9 @@ public extension DeSoKit.Api.User.UsersStatless {
     
     struct Response: Codable {
         
-        public let UserList: [User]
-        public let DefaultFeeRateNanosPerKB: UInt64
-        public let ParamUpdaters: [String: Bool]
+        public let userList: [User]
+        public let defaultFeeRateNanosPerKB: UInt64
+        public let paramUpdaters: [String: Bool]
         
     }
     
@@ -109,8 +109,8 @@ public extension DeSoKit.Api.User.Profiles {
     
     struct Response: Codable {
         
-        public let ProfilesFound: [ProfileEntry]
-        public let NextPublicKey: String?
+        public let profilesFound: [ProfileEntry]
+        public let nextPublicKey: String?
         
     }
     
@@ -119,7 +119,7 @@ public extension DeSoKit.Api.User.Profiles {
 public extension DeSoKit.Api.User.Profile {
     
     struct Response: Codable {
-        public let Profile: ProfileEntry
+        public let profile: ProfileEntry
     }
     
 }
@@ -128,8 +128,8 @@ public extension DeSoKit.Api.User.HODLers {
     
     struct Response: Codable {
         
-        public let Hodlers: [BalanceEntry]
-        public let LastPublicKeyBase58Check: String
+        public let hodlers: [BalanceEntry]
+        public let lastPublicKeyBase58Check: String
         
     }
     
@@ -138,18 +138,18 @@ public extension DeSoKit.Api.User.HODLers {
 public extension DeSoKit.Api.User.Diamonds {
     
     struct DiamondsSenderSummary: Codable {
-        public let SenderPublicKeyBase58Check: String
-        public let ReceiverPublicKeyBase58Check: String
-        public let TotalDiamonds: UInt64
-        public let HighestDiamondLevel: UInt64
-        public let DiamondLevelMap: [String: UInt64]
-        public let ProfileEntryResponse: ProfileEntry
+        public let senderPublicKeyBase58Check: String
+        public let receiverPublicKeyBase58Check: String
+        public let totalDiamonds: UInt64
+        public let highestDiamondLevel: UInt64
+        public let diamondLevelMap: [String: UInt64]
+        public let profileEntryResponse: ProfileEntry
     }
     
     struct Response: Codable {
         
-        public let DiamondSenderSummaryResponses: [DiamondsSenderSummary]
-        public let TotalDiamonds: UInt64
+        public let diamondSenderSummaryResponses: [DiamondsSenderSummary]
+        public let totalDiamonds: UInt64
         
     }
 
@@ -159,8 +159,8 @@ public extension DeSoKit.Api.User.FollowsStateless {
     
     struct Response: Codable {
         
-        public let PublicKeyToProfileEntry: [String: ProfileEntry]
-        public let NumFollowers: UInt64
+        public let publicKeyToProfileEntry: [String: ProfileEntry]
+        public let numFollowers: UInt64
         
     }
     
