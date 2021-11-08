@@ -556,7 +556,8 @@ extension JSONDecoder.KeyDecodingStrategy {
             if key.intValue != nil {
                 return key
             }
-            return AnyKey(string: key.stringValue.firstCharLowercased())
+            let newKey = key.stringValue.prefix(1).lowercased() + key.stringValue.dropFirst()
+            return AnyKey(string: newKey)
         }
     }
 }
@@ -570,17 +571,9 @@ extension JSONEncoder.KeyEncodingStrategy {
             if key.intValue != nil {
                 return key
             }
-            return AnyKey(string: key.stringValue.firstCharUppercased())
+            let newKey = key.stringValue.prefix(1).uppercased() + key.stringValue.dropFirst()
+            return AnyKey(string: newKey)
         }
-    }
-}
-
-private extension String {
-    func firstCharLowercased() -> String {
-        prefix(1).lowercased() + dropFirst()
-    }
-    func firstCharUppercased() -> String {
-        prefix(1).uppercased() + dropFirst()
     }
 }
 
