@@ -38,6 +38,7 @@ public struct DeSoKit {
                         } else {
                             throw DeSoKitError.unknown
                         }
+                        
                     } catch {
                         print("😭 DESOKIT ERROR: \(error.localizedDescription)")
                         throw error
@@ -101,18 +102,21 @@ public struct DeSoKit {
                 }
             }
             
+            public struct AppStateRequest: Codable {
+                public let publicKeyBase58Check: String
+                public init(publicKeyBase58Check: String = "") {
+                    self.publicKeyBase58Check = publicKeyBase58Check
+                }
+            }
+            
             public struct AppState {
-                public static func fetch() async throws -> AppStateResponse {
+                public static func fetch(request: AppStateRequest = AppStateRequest()) async throws -> AppStateResponse {
                     do {
                         let endpoint = baseURL
                             .appendingPathComponent(basePath)
                             .appendingPathComponent("get-app-state")
-                        var req = URLRequest(url: endpoint)
-                        req.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                        req.addValue("application/json", forHTTPHeaderField: "Accept")
-                        req.httpMethod = "POST"
-                        req.httpBody = try JSONSerialization.data(withJSONObject: [:], options: .prettyPrinted)
 
+                        let req = try DeSoKit.GetPostRequest(withURL: endpoint, request: request)
                         let (data, res) = try await session.data(for: req)
                         
                         guard let response = res as? HTTPURLResponse else {
@@ -385,15 +389,10 @@ public struct DeSoKit {
             }
             
             public struct FollowsStatelessRequest: Codable {
-                // Either PublicKeyBase58Check or Username can be set by the client to specify
-                // which user we're obtaining follows for
-                // If both are specified, PublicKeyBase58Check will supercede
                 public let publicKeyBase58Check: String
                 public let username: String
                 public let getEntriesFollowingUsername: Bool
-                // Public Key of the last follower / followee from the previous page
                 public let lastPublicKeyBase58Check: String
-                // Number of records to fetch
                 public let numToFetch: UInt64
                 
                 public init(publicKeyBase58Check: String = "", username: String = "",
@@ -457,42 +456,69 @@ public struct DeSoKit {
         
         public struct Post {
             
-            public class PostsStatelessRequest: Codable {
-//                // This is the PostHashHex of the post we want to start our paginated lookup at. We
-//                // will fetch up to "NumToFetch" posts after it, ordered by time stamp.  If no
-//                // PostHashHex is provided we will return the most recent posts.
-//                public let PostHashHex: String
-//                public let ReaderPublicKeyBase58Check: String
-//                public let OrderBy: String
-//                public let StartTstampSecs: UInt64
-//                public let PostContent: String
-//                public let NumToFetch: Int
-//
-//                // Note: if the GetPostsForFollowFeed option is passed, FetchSubcomments is currently ignored
-//                // (fetching comments / subcomments for the follow feed is currently unimplemented)
-//                public let FetchSubcomments: Bool
-//
-//                // This gets posts by people that ReaderPublicKeyBase58Check follows.
-//                public let GetPostsForFollowFeed: Bool
-//
-//                // This gets posts by people that ReaderPublicKeyBase58Check follows.
-//                public let GetPostsForGlobalWhitelist: Bool
-//
-//                // This gets posts sorted by deso
-//                public let GetPostsByDESO: Bool
-//
-//                // This only gets posts that include media, like photos and videos
-//                public let MediaRequired: Bool
-//
-//                public let PostsByDESOMinutesLookback: UInt64
-//
-//                // If set to true, then the posts in the response will contain a boolean about whether they're in the global feed
-//                public let AddGlobalFeedBool: Bool
+            public struct PostsStatelessRequest: Codable {
+                public let postHashHex: String
+                public let readerPublicKeyBase58Check: String
+                public let orderBy: String
+                public let startTstampSecs: UInt64?
+                public let postContent: String
+                public let numToFetch: Int
+                public let fetchSubcomments: Bool
+                public let getPostsForFollowFeed: Bool
+                public let getPostsForGlobalWhitelist: Bool
+                public let getPostsByDESO: Bool
+                public let mediaRequired: Bool
+                public let postsByDESOMinutesLookback: UInt64
+                public let addGlobalFeedBool: Bool
+                
+                public init(postHashHex: String = "", readerPublicKeyBase58Check: String = "", orderBy: String = "",
+                            startTstampSecs: UInt64? = nil, postContent: String = "", numToFetch: Int = 50, fetchSubcomments: Bool = false,
+                            getPostsForFollowFeed: Bool = false, getPostsForGlobalWhitelist: Bool = true, getPostsByDESO: Bool = false,
+                            mediaRequired: Bool = false, postsByDESOMinutesLookback: UInt64 = 0, addGlobalFeedBool: Bool = false) {
+                    self.postHashHex = postHashHex
+                    self.readerPublicKeyBase58Check = readerPublicKeyBase58Check
+                    self.orderBy = orderBy
+                    self.startTstampSecs = startTstampSecs
+                    self.postContent = postContent
+                    self.numToFetch = numToFetch
+                    self.fetchSubcomments = fetchSubcomments
+                    self.getPostsForFollowFeed = getPostsForFollowFeed
+                    self.getPostsForGlobalWhitelist = getPostsForGlobalWhitelist
+                    self.getPostsByDESO = getPostsByDESO
+                    self.mediaRequired = mediaRequired
+                    self.postsByDESOMinutesLookback = postsByDESOMinutesLookback
+                    self.addGlobalFeedBool = addGlobalFeedBool
+                }
+                
             }
             
-            
             public struct PostsStateless {
-                
+                public static func fetch(request: PostsStatelessRequest) async throws -> PostsStatelessReponse {
+                    do {
+                        let endpoint = baseURL
+                            .appendingPathComponent(basePath)
+                            .appendingPathComponent("get-posts-stateless")
+                        
+                        let req = try DeSoKit.GetPostRequest(withURL: endpoint, request: request)
+                        let (data, res) = try await session.data(for: req)
+                        
+                        guard let response = res as? HTTPURLResponse else {
+                            throw DeSoKitError.unknown
+                        }
+                        
+                        if response.statusCode == 200 {
+                            return try decoder.decode(PostsStatelessReponse.self, from: data)
+                        } else if let errorResponse = try? decoder.decode(DeSoKitErrorResponse.self, from: data) {
+                            throw DeSoKitError.error(message: errorResponse.error)
+                        } else {
+                            throw DeSoKitError.unknown
+                        }
+                        
+                    } catch {
+                        print("😭 DESOKIT ERROR: \(error.localizedDescription)")
+                        throw error
+                    }
+                }
             }
             
             public struct Post {
@@ -515,7 +541,7 @@ public struct DeSoKit {
         
     }
     
-    static func GetPostRequest<T: Codable>(withURL url: URL, request: T) throws -> URLRequest {
+    static func GetPostRequest<T: Encodable>(withURL url: URL, request: T) throws -> URLRequest {
         var req = URLRequest(url: url)
         req.addValue("application/json", forHTTPHeaderField: "Content-Type")
         req.addValue("application/json", forHTTPHeaderField: "Accept")

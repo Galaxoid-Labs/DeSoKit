@@ -101,4 +101,15 @@ final class DeSoKitTests: XCTestCase {
             XCTFail("\(error)")
         }
     }
+    
+    func testPostsStateless() async throws {
+        do {
+            let request = DeSoKit.Api.Post.PostsStatelessRequest()
+            let result = try await DeSoKit.Api.Post.PostsStateless
+                .fetch(request: request)
+            XCTAssertNotNil(result)
+        } catch {
+            XCTFail("\(error)")
+        }
+    }
 }

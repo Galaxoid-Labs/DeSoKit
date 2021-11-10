@@ -81,14 +81,12 @@ public extension DeSoKit.Api.User {
     }
     
     struct BalanceEntry: Codable {
-        
         public let hODLerPublicKeyBase58Check: String
         public let creatorPublicKeyBase58Check: String
         public let hasPurchased: Bool
         public let balanceNanos: UInt64
         public let netBalanceInMempool: UInt64
         public let profileEntryResponse: ProfileEntry
-        
     }
     
 }
@@ -96,11 +94,9 @@ public extension DeSoKit.Api.User {
 public extension DeSoKit.Api.User.UsersStatless {
     
     struct Response: Codable {
-        
         public let userList: [User]
         public let defaultFeeRateNanosPerKB: UInt64
         public let paramUpdaters: [String: Bool]
-        
     }
     
 }
@@ -108,10 +104,8 @@ public extension DeSoKit.Api.User.UsersStatless {
 public extension DeSoKit.Api.User.Profiles {
     
     struct Response: Codable {
-        
         public let profilesFound: [ProfileEntry]
         public let nextPublicKey: String?
-        
     }
     
 }
@@ -127,10 +121,8 @@ public extension DeSoKit.Api.User.Profile {
 public extension DeSoKit.Api.User.HODLers {
     
     struct Response: Codable {
-        
         public let hodlers: [BalanceEntry]
         public let lastPublicKeyBase58Check: String
-        
     }
     
 }
@@ -147,10 +139,8 @@ public extension DeSoKit.Api.User.Diamonds {
     }
     
     struct Response: Codable {
-        
         public let diamondSenderSummaryResponses: [DiamondsSenderSummary]
         public let totalDiamonds: UInt64
-        
     }
 
 }
@@ -158,10 +148,8 @@ public extension DeSoKit.Api.User.Diamonds {
 public extension DeSoKit.Api.User.FollowsStateless {
     
     struct Response: Codable {
-        
         public let publicKeyToProfileEntry: [String: ProfileEntry]
         public let numFollowers: UInt64
-        
     }
     
 }

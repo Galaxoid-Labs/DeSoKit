@@ -15,12 +15,32 @@ public extension DeSoKit.Api.General.ExchangeRate {
     struct Response: Codable {
         
         public let satoshisPerDeSoExchangeRate: UInt64
-        public let nanosSold: UInt64
         
         let uSDCentsPerBitcoinExchangeRate: UInt64
         public var usdCentsPerBitcoinExchangeRate: UInt64 { // Vanity property :)
             return uSDCentsPerBitcoinExchangeRate
         }
+
+        public let nanosPerETHExchangeRate: UInt64
+        
+        let uSDCentsPerETHExchangeRate: UInt64
+        public var usdCentsPerETHExchangeRate: UInt64 { // Vanity property :)
+            return uSDCentsPerETHExchangeRate
+        }
+
+        public let nanosSold: UInt64
+        
+        let uSDCentsPerDeSoExchangeRate: UInt64
+        public var usdCentsPerDeSoExchangeRate: UInt64 { // Vanity property :)
+            return uSDCentsPerDeSoExchangeRate
+        }
+        
+        let uSDCentsPerDeSoReserveExchangeRate: UInt64
+        public var usdCentsPerDeSoReserveExchangeRate: UInt64 { // Vanity property :)
+            return uSDCentsPerDeSoReserveExchangeRate
+        }
+        
+        public let buyDeSoFeeBasisPoints: UInt64
         
     }
     
