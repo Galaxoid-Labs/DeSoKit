@@ -184,6 +184,13 @@ public extension DeSoKit.Post {
             return self.postEntryReaderState?.repostedByReader ?? false
         }
         
+        public var embededVideo: URL? {
+            if let videoUrl = self.postExtraData["EmbedVideoURL"] {
+                return URL(string: videoUrl)
+            }
+            return nil
+        }
+        
     }
     
     struct PostEntryReaderState: Codable {
