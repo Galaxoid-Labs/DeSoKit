@@ -1,8 +1,5 @@
 name: Swift
 
-env:
-  DEVELOPER_DIR: /Applications/Xcode_13.1.app
-
 on:
   push:
     branches: [ main ]
@@ -16,6 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+    - name: Choose Xcode Version
+      run: sudo xcode-select -s /Applications/Xcode_13.1.app/Contents/Developer
     - name: Build
       run: swift build -v
     - name: Run tests
