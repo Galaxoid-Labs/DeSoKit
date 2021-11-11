@@ -34,8 +34,14 @@ public extension DeSoKit {
 public extension DeSoKit.User {
     
     struct UsersStatelessRequest: DeSoPostRequest {
+        
+        // MARK: - Properties
+        
         public let publicKeysBase58Check: [String]
         public let skipForLeaderboard: Bool
+        
+        // MARK: - Protocol Conformance
+        
         public static var endpoint: URL {
             return DeSoKit.baseURL
                 .appendingPathComponent(DeSoKit.basePath)
@@ -44,6 +50,8 @@ public extension DeSoKit.User {
     }
     
     struct ProfilesRequest: DeSoPostRequest {
+        
+        // MARK: - Enumerations
         
         public enum OrderBy: String, Codable {
             case none = ""
@@ -58,6 +66,8 @@ public extension DeSoKit.User {
             case leaderboard = "leaderboard"
         }
         
+        // MARK: - Properties
+        
         public let publicKeyBase58Check: String
         public let username: String
         public let usernamePrefix: String
@@ -68,6 +78,8 @@ public extension DeSoKit.User {
         public let moderationType: ModerationType
         public let fetchUsersThatHODL: Bool
         public let addGlobalFeedBool: Bool
+        
+        // MARK: - Protocol Conformance
         
         public static var endpoint: URL {
             return DeSoKit.baseURL
@@ -92,9 +104,13 @@ public extension DeSoKit.User {
     }
     
     struct SingleProfileRequest: DeSoPostRequest {
+        
+        // MARK: - Properties
 
         public let publicKeyBase58Check: String?
         public let username: String?
+        
+        // MARK: - Protocol Conformance
         
         public static var endpoint: URL {
             return DeSoKit.baseURL
@@ -110,6 +126,8 @@ public extension DeSoKit.User {
     }
     
     struct HODLersRequest: DeSoPostRequest {
+        
+        // MARK: - Properties
 
         public let publicKeyBase58Check: String
         public let username: String
@@ -117,6 +135,8 @@ public extension DeSoKit.User {
         public let numToFetch: UInt64
         public let fetchHodlings: Bool
         public let fetchAll: Bool
+        
+        // MARK: - Protocol Conformance
         
         public static var endpoint: URL {
             return DeSoKit.baseURL
@@ -137,9 +157,13 @@ public extension DeSoKit.User {
     }
     
     struct DiamondsRequest: DeSoPostRequest {
+        
+        // MARK: - Properties
 
         public let publicKeyBase58Check: String
         public let fetchYouDiamonded: Bool
+        
+        // MARK: - Protocol Conformance
         
         public static var endpoint: URL {
             return DeSoKit.baseURL
@@ -155,11 +179,16 @@ public extension DeSoKit.User {
     }
     
     struct FollowsStatelessRequest: DeSoPostRequest {
+        
+        // MARK: - Properties
+        
         public let publicKeyBase58Check: String
         public let username: String
         public let getEntriesFollowingUsername: Bool
         public let lastPublicKeyBase58Check: String
         public let numToFetch: UInt64
+        
+        // MARK: - Protocol Conformance
         
         public static var endpoint: URL {
             return DeSoKit.baseURL
@@ -246,17 +275,8 @@ public extension DeSoKit.User {
 public extension DeSoKit.User {
     
     struct User: DeSoAvatar, Codable, Identifiable {
-
-        public var id: String {
-            return self.publicKeyBase58Check
-        }
         
-        public var avatar: URL {
-            return DeSoKit.baseURL
-                .appendingPathComponent(DeSoKit.basePath)
-                .appendingPathComponent("get-single-profile-picture")
-                .appendingPathComponent(publicKeyBase58Check)
-        }
+        // MARK: - Enumerations
         
         public enum TutorialStatus: String, Codable {
             case empty = ""
@@ -271,6 +291,8 @@ public extension DeSoKit.User {
             case complete = "TutorialComplete"
         }
         
+        // MARK: - Properties
+
         public let publicKeyBase58Check: String
         public let profileEntryResponse: ProfileEntry
         //Utxos               []*UTXOEntryResponse ?
@@ -297,10 +319,8 @@ public extension DeSoKit.User {
         public let creatorCoinsPurchasedInTutorial: UInt64
         public let mustCompleteTutorial: Bool
         
-    }
-    
-    struct ProfileEntry: DeSoAvatar, Codable, Identifiable {
-        
+        // MARK: - Protocol Conformance
+
         public var id: String {
             return self.publicKeyBase58Check
         }
@@ -311,6 +331,12 @@ public extension DeSoKit.User {
                 .appendingPathComponent("get-single-profile-picture")
                 .appendingPathComponent(publicKeyBase58Check)
         }
+        
+    }
+    
+    struct ProfileEntry: DeSoAvatar, Codable, Identifiable {
+        
+        // MARK: - Properties
         
         public let publicKeyBase58Check: String
         public let username: String
@@ -325,6 +351,19 @@ public extension DeSoKit.User {
         public let usersThatHODL: [BalanceEntry]?
         public let isFeaturedTutorialWellKnownCreator: Bool
         public let isFeaturedTutorialUpAndComingCreator: Bool
+        
+        // MARK: - Protocol Conformance
+        
+        public var id: String {
+            return self.publicKeyBase58Check
+        }
+        
+        public var avatar: URL {
+            return DeSoKit.baseURL
+                .appendingPathComponent(DeSoKit.basePath)
+                .appendingPathComponent("get-single-profile-picture")
+                .appendingPathComponent(publicKeyBase58Check)
+        }
         
     }
     

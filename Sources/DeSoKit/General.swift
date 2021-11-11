@@ -25,6 +25,9 @@ public extension DeSoKit {
 public extension DeSoKit.General {
     
     struct IndexRequest: DeSoGetRequest {
+        
+        // MARK: - Protocol Conformance
+        
         public static var endpoint: URL {
             return DeSoKit.baseURL
                 .appendingPathComponent(DeSoKit.basePath)
@@ -32,6 +35,9 @@ public extension DeSoKit.General {
     }
     
     struct HealthCheckRequest: DeSoGetRequest {
+        
+        // MARK: - Protocol Conformance
+        
         public static var endpoint: URL {
             return DeSoKit.baseURL
                 .appendingPathComponent(DeSoKit.basePath)
@@ -40,6 +46,9 @@ public extension DeSoKit.General {
     }
     
     struct ExchangeRateRequest: DeSoGetRequest {
+        
+        // MARK: - Protocol Conformance
+        
         public static var endpoint: URL {
             return DeSoKit.baseURL
                 .appendingPathComponent(DeSoKit.basePath)
@@ -52,6 +61,9 @@ public extension DeSoKit.General {
         public init(publicKeyBase58Check: String = "") {
             self.publicKeyBase58Check = publicKeyBase58Check
         }
+        
+        // MARK: - Protocol Conformance
+        
         public static var endpoint: URL {
             return DeSoKit.baseURL
                 .appendingPathComponent(DeSoKit.basePath)

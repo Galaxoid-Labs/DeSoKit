@@ -23,6 +23,9 @@ public extension DeSoKit {
 public extension DeSoKit.Post {
     
     struct PostsStatelessRequest: DeSoPostRequest {
+        
+        // MARK: - Properties
+        
         public let postHashHex: String
         public let readerPublicKeyBase58Check: String
         public let orderBy: String
@@ -36,6 +39,8 @@ public extension DeSoKit.Post {
         public let mediaRequired: Bool
         public let postsByDESOMinutesLookback: UInt64
         public let addGlobalFeedBool: Bool
+        
+        // MARK: - Protocol Conformance
         
         public static var endpoint: URL {
             return DeSoKit.baseURL
@@ -65,12 +70,17 @@ public extension DeSoKit.Post {
     }
     
     struct SinglePostRequest: DeSoPostRequest {
+        
+        // MARK: - Properties
+        
         public let postHashHex: String
         public let fetchParents: Bool
         public let commentOffset: UInt32
         public let commentLimit: UInt32
         public let readerPublicKeyBase58Check: String
         public let addGlobalFeedBool: Bool
+        
+        // MARK: - Protocol Conformance
         
         public static var endpoint: URL {
             return DeSoKit.baseURL
@@ -108,20 +118,7 @@ public extension DeSoKit.Post {
     
     class PostEntry: DeSoAvatar, Codable, Identifiable { // Only a class because some properties are of same type which is not allowed on struct: TODO:
         
-        public var id: String {
-            return self.postHashHex
-        }
-        
-        public var avatar: URL {
-            return DeSoKit.baseURL
-                .appendingPathComponent(DeSoKit.basePath)
-                .appendingPathComponent("get-single-profile-picture")
-                .appendingPathComponent(posterPublicKeyBase58Check)
-        }
-        
-        public var date: Date {
-            return Date(timeIntervalSince1970: TimeInterval(self.timestampNanos / 1_000_000_000))
-        }
+        // MARK: - Properties
         
         public let postHashHex: String
         public let posterPublicKeyBase58Check: String
@@ -159,6 +156,33 @@ public extension DeSoKit.Post {
         public let diamondsFromSender: UInt64
         public let hotnessScore: UInt64
         public let postMultiplier: Float64
+        
+        // MARK: - Protocol Conformance
+        
+        public var id: String {
+            return self.postHashHex
+        }
+        
+        public var avatar: URL {
+            return DeSoKit.baseURL
+                .appendingPathComponent(DeSoKit.basePath)
+                .appendingPathComponent("get-single-profile-picture")
+                .appendingPathComponent(posterPublicKeyBase58Check)
+        }
+        
+        // MARK: - Helpers
+        
+        public var date: Date {
+            return Date(timeIntervalSince1970: TimeInterval(self.timestampNanos / 1_000_000_000))
+        }
+        
+        public var likedByReader: Bool {
+            return self.postEntryReaderState?.likedByReader ?? false
+        }
+        
+        public var repostedByReader: Bool {
+            return self.postEntryReaderState?.repostedByReader ?? false
+        }
         
     }
     
