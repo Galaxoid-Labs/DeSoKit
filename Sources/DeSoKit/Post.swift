@@ -119,6 +119,10 @@ public extension DeSoKit.Post {
                 .appendingPathComponent(posterPublicKeyBase58Check)
         }
         
+        public var date: Date {
+            return Date(timeIntervalSince1970: TimeInterval(self.timestampNanos))
+        }
+        
         public let postHashHex: String
         public let posterPublicKeyBase58Check: String
         public let parentStakeID: String
