@@ -245,7 +245,11 @@ public extension DeSoKit.User {
 // MARK: - Models
 public extension DeSoKit.User {
     
-    struct User: Codable {
+    struct User: Codable, Identifiable {
+
+        public var id: String {
+            return self.publicKeyBase58Check
+        }
         
         public enum TutorialStatus: String, Codable {
             case empty = ""
@@ -288,7 +292,11 @@ public extension DeSoKit.User {
         
     }
     
-    struct ProfileEntry: Codable {
+    struct ProfileEntry: Codable, Identifiable {
+        
+        public var id: String {
+            return self.publicKeyBase58Check
+        }
         
         public let publicKeyBase58Check: String
         public let username: String

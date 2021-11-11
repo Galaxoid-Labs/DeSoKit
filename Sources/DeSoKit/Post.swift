@@ -107,7 +107,12 @@ public extension DeSoKit.Post {
 // MARK: - Models
 public extension DeSoKit.Post {
     
-    class PostEntry: Codable { // Only a class because some properties are of same type which is not allowed on struct: TODO:
+    class PostEntry: Codable, Identifiable { // Only a class because some properties are of same type which is not allowed on struct: TODO:
+        
+        public var id: String {
+            return self.postHashHex
+        }
+        
         public let postHashHex: String
         public let posterPublicKeyBase58Check: String
         public let parentStakeID: String
