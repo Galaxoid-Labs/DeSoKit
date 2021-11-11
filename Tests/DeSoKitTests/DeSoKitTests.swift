@@ -5,13 +5,14 @@ final class DeSoKitTests: XCTestCase {
     
     // Using bitclout.com not sure how to get index as it returns html, etc...
 //    func testIndex() async throws {
-//        let result = try await Deso.General.Index.get()
+//        let request = IndexRequest()
+//        let result: IndexResponse = try await DeSoKit.Api.fetch(request: request)
 //        XCTAssertEqual(result, "Your BitClout node is running!\n")
 //    }
     
     func testHealthCheck() async throws {
         do {
-            let result = try await DeSoKit.Api.General.HealthCheck.fetch()
+            let result: HealthCheckResponse = try await DeSoKit.Api.fetch(HealthCheckRequest())
             XCTAssertEqual(result, "200")
         } catch {
             XCTFail("\(error)")
@@ -20,7 +21,7 @@ final class DeSoKitTests: XCTestCase {
     
     func testExchangeRate() async throws {
         do {
-            let result = try await DeSoKit.Api.General.ExchangeRate.fetch()
+            let result: ExchangeRateResponse = try await DeSoKit.Api.fetch(ExchangeRateRequest())
             XCTAssertNotNil(result)
         } catch {
             XCTFail("\(error)")
@@ -29,7 +30,7 @@ final class DeSoKitTests: XCTestCase {
     
     func testAppState() async throws {
         do {
-            let result = try await DeSoKit.Api.General.AppState.fetch()
+            let result: AppStateResponse = try await DeSoKit.Api.fetch(AppStateRequest())
             XCTAssertNotNil(result)
         } catch {
             XCTFail("\(error)")
@@ -38,9 +39,8 @@ final class DeSoKitTests: XCTestCase {
     
     func testUsersStatless() async throws {
         do {
-            let request = DeSoKit.Api.User.UsersStatlessRequest(publicKeysBase58Check: ["BC1YLg7h8v4kQD1Cw3utW2U5RY2FQiLapc6BLjiWx98LyXSJC7yZcZu"], skipForLeaderboard: false)
-            let result = try await DeSoKit.Api.User.UsersStatless
-                .fetch(request: request)
+            let request = UsersStatelessRequest(publicKeysBase58Check: ["BC1YLg7h8v4kQD1Cw3utW2U5RY2FQiLapc6BLjiWx98LyXSJC7yZcZu"], skipForLeaderboard: false)
+            let result: UsersStatelessReponse = try await DeSoKit.Api.fetch(request)
             XCTAssertNotNil(result)
         } catch {
             XCTFail("\(error)")
@@ -49,9 +49,8 @@ final class DeSoKitTests: XCTestCase {
     
     func testProfiles() async throws {
         do {
-            let request = DeSoKit.Api.User.ProfilesRequest(readerPublicKeyBase58Check: "BC1YLg7h8v4kQD1Cw3utW2U5RY2FQiLapc6BLjiWx98LyXSJC7yZcZu")
-            let result = try await DeSoKit.Api.User.Profiles
-                .fetch(request: request)
+            let request = ProfilesRequest(readerPublicKeyBase58Check: "BC1YLg7h8v4kQD1Cw3utW2U5RY2FQiLapc6BLjiWx98LyXSJC7yZcZu")
+            let result: ProfilesResponse = try await DeSoKit.Api.fetch(request)
             XCTAssertNotNil(result)
         } catch {
             XCTFail("\(error)")
@@ -60,9 +59,8 @@ final class DeSoKitTests: XCTestCase {
     
     func testProfile() async throws {
         do {
-            let request = DeSoKit.Api.User.ProfileRequest(publicKeyBase58Check: "BC1YLg7h8v4kQD1Cw3utW2U5RY2FQiLapc6BLjiWx98LyXSJC7yZcZu")
-            let result = try await DeSoKit.Api.User.Profile
-                .fetch(request: request)
+            let request = SingleProfileRequest(publicKeyBase58Check: "BC1YLg7h8v4kQD1Cw3utW2U5RY2FQiLapc6BLjiWx98LyXSJC7yZcZu")
+            let result: ProfileResponse = try await DeSoKit.Api.fetch(request)
             XCTAssertNotNil(result)
         } catch {
             XCTFail("\(error)")
@@ -71,9 +69,8 @@ final class DeSoKitTests: XCTestCase {
     
     func testHODLers() async throws {
         do {
-            let request = DeSoKit.Api.User.HODLersRequest(publicKeyBase58Check: "BC1YLg7h8v4kQD1Cw3utW2U5RY2FQiLapc6BLjiWx98LyXSJC7yZcZu")
-            let result = try await DeSoKit.Api.User.HODLers
-                .fetch(request: request)
+            let request = HODLersRequest(publicKeyBase58Check: "BC1YLg7h8v4kQD1Cw3utW2U5RY2FQiLapc6BLjiWx98LyXSJC7yZcZu")
+            let result: HODLersResponse = try await DeSoKit.Api.fetch(request)
             XCTAssertNotNil(result)
         } catch {
             XCTFail("\(error)")
@@ -82,9 +79,8 @@ final class DeSoKitTests: XCTestCase {
     
     func testDiamonds() async throws {
         do {
-            let request = DeSoKit.Api.User.DiamondsRequest(publicKeyBase58Check: "BC1YLg7h8v4kQD1Cw3utW2U5RY2FQiLapc6BLjiWx98LyXSJC7yZcZu", fetchYouDiamonded: false)
-            let result = try await DeSoKit.Api.User.Diamonds
-                .fetch(request: request)
+            let request = DiamondsRequest(publicKeyBase58Check: "BC1YLg7h8v4kQD1Cw3utW2U5RY2FQiLapc6BLjiWx98LyXSJC7yZcZu", fetchYouDiamonded: false)
+            let result: DiamondsResponse = try await DeSoKit.Api.fetch(request)
             XCTAssertNotNil(result)
         } catch {
             XCTFail("\(error)")
@@ -93,9 +89,8 @@ final class DeSoKitTests: XCTestCase {
     
     func testFollowsStateless() async throws {
         do {
-            let request = DeSoKit.Api.User.FollowsStatelessRequest(publicKeyBase58Check: "BC1YLg7h8v4kQD1Cw3utW2U5RY2FQiLapc6BLjiWx98LyXSJC7yZcZu")
-            let result = try await DeSoKit.Api.User.FollowsStateless
-                .fetch(request: request)
+            let request = FollowsStatelessRequest(publicKeyBase58Check: "BC1YLg7h8v4kQD1Cw3utW2U5RY2FQiLapc6BLjiWx98LyXSJC7yZcZu")
+            let result: FollowsStatelessResponse = try await DeSoKit.Api.fetch(request)
             XCTAssertNotNil(result)
         } catch {
             XCTFail("\(error)")
@@ -104,12 +99,22 @@ final class DeSoKitTests: XCTestCase {
     
     func testPostsStateless() async throws {
         do {
-            let request = DeSoKit.Api.Post.PostsStatelessRequest()
-            let result = try await DeSoKit.Api.Post.PostsStateless
-                .fetch(request: request)
+            let request = PostsStatelessRequest()
+            let result: PostsStatelessReponse = try await DeSoKit.Api.fetch(request)
             XCTAssertNotNil(result)
         } catch {
             XCTFail("\(error)")
         }
     }
+    
+    func testSinglePost() async throws {
+        do {
+            let request = SinglePostRequest(postHashHex: "6a2a883955a5a3842343460224a8b2b588335142600a1516180ae33e81e85d74")
+            let result: SinglePostReponse = try await DeSoKit.Api.fetch(request)
+            XCTAssertNotNil(result)
+        } catch {
+            XCTFail("\(error)")
+        }
+    }
+
 }

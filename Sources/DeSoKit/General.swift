@@ -1,18 +1,70 @@
 //
-//  File.swift
+//  General.swift
 //  
 //
-//  Created by Jacob Davis on 11/7/21.
+//  Created by Jacob Davis on 11/10/21.
 //
 
 import Foundation
 
-public typealias ExchangeRateResponse = DeSoKit.Api.General.ExchangeRate.Response
-public typealias AppStateResponse = DeSoKit.Api.General.AppState.Response
+public typealias AppStateRequest = DeSoKit.General.AppStateRequest
+public typealias ExchangeRateRequest = DeSoKit.General.ExchangeRateRequest
+public typealias HealthCheckRequest = DeSoKit.General.HealthCheckRequest
+public typealias IndexRequest = DeSoKit.General.IndexRequest
 
-public extension DeSoKit.Api.General.ExchangeRate {
+public typealias IndexResponse = String
+public typealias HealthCheckResponse = String
+public typealias ExchangeRateResponse = DeSoKit.General.ExchangeRateResponse
+public typealias AppStateResponse = DeSoKit.General.AppStateResponse
+
+public extension DeSoKit {
+    struct General {}
+}
+
+// MARK: - Requests
+public extension DeSoKit.General {
     
-    struct Response: Codable {
+    struct IndexRequest: DeSoGetRequest {
+        public static var endpoint: URL {
+            return DeSoKit.baseURL
+                .appendingPathComponent(DeSoKit.basePath)
+        }
+    }
+    
+    struct HealthCheckRequest: DeSoGetRequest {
+        public static var endpoint: URL {
+            return DeSoKit.baseURL
+                .appendingPathComponent(DeSoKit.basePath)
+                .appendingPathComponent("health-check")
+        }
+    }
+    
+    struct ExchangeRateRequest: DeSoGetRequest {
+        public static var endpoint: URL {
+            return DeSoKit.baseURL
+                .appendingPathComponent(DeSoKit.basePath)
+                .appendingPathComponent("get-exchange-rate")
+        }
+    }
+    
+    struct AppStateRequest: DeSoPostRequest {
+        public let publicKeyBase58Check: String
+        public init(publicKeyBase58Check: String = "") {
+            self.publicKeyBase58Check = publicKeyBase58Check
+        }
+        public static var endpoint: URL {
+            return DeSoKit.baseURL
+                .appendingPathComponent(DeSoKit.basePath)
+                .appendingPathComponent("get-app-state")
+        }
+    }
+    
+}
+
+// MARK: - Responses
+public extension DeSoKit.General {
+    
+    struct ExchangeRateResponse: Codable {
         
         public let satoshisPerDeSoExchangeRate: UInt64
         
@@ -44,11 +96,7 @@ public extension DeSoKit.Api.General.ExchangeRate {
         
     }
     
-}
-
-public extension DeSoKit.Api.General.AppState {
-    
-    struct Response: Codable {
+    struct AppStateResponse: Codable {
         
         public let amplitudeKey: String
         public let amplitudeDomain: String
