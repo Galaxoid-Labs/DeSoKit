@@ -245,10 +245,17 @@ public extension DeSoKit.User {
 // MARK: - Models
 public extension DeSoKit.User {
     
-    struct User: Codable, Identifiable {
+    struct User: DeSoAvatar, Codable, Identifiable {
 
         public var id: String {
             return self.publicKeyBase58Check
+        }
+        
+        public var avatar: URL {
+            return DeSoKit.baseURL
+                .appendingPathComponent(DeSoKit.basePath)
+                .appendingPathComponent("get-single-profile-picture")
+                .appendingPathComponent(publicKeyBase58Check)
         }
         
         public enum TutorialStatus: String, Codable {
@@ -292,10 +299,17 @@ public extension DeSoKit.User {
         
     }
     
-    struct ProfileEntry: Codable, Identifiable {
+    struct ProfileEntry: DeSoAvatar, Codable, Identifiable {
         
         public var id: String {
             return self.publicKeyBase58Check
+        }
+        
+        public var avatar: URL {
+            return DeSoKit.baseURL
+                .appendingPathComponent(DeSoKit.basePath)
+                .appendingPathComponent("get-single-profile-picture")
+                .appendingPathComponent(publicKeyBase58Check)
         }
         
         public let publicKeyBase58Check: String

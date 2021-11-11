@@ -15,7 +15,6 @@ public typealias SinglePostReponse = DeSoKit.Post.SinglePostResponse
 
 public typealias PostEntry = DeSoKit.Post.PostEntry
 
-
 public extension DeSoKit {
     struct Post {}
 }
@@ -107,10 +106,17 @@ public extension DeSoKit.Post {
 // MARK: - Models
 public extension DeSoKit.Post {
     
-    class PostEntry: Codable, Identifiable { // Only a class because some properties are of same type which is not allowed on struct: TODO:
+    class PostEntry: DeSoAvatar, Codable, Identifiable { // Only a class because some properties are of same type which is not allowed on struct: TODO:
         
         public var id: String {
             return self.postHashHex
+        }
+        
+        public var avatar: URL {
+            return DeSoKit.baseURL
+                .appendingPathComponent(DeSoKit.basePath)
+                .appendingPathComponent("get-single-profile-picture")
+                .appendingPathComponent(posterPublicKeyBase58Check)
         }
         
         public let postHashHex: String

@@ -117,6 +117,10 @@ public protocol DeSoGetRequest {
     static var endpoint: URL { get }
 }
 
+public protocol DeSoAvatar {
+    var avatar: URL { get }
+}
+
 extension JSONDecoder.KeyDecodingStrategy {
     static var convertFromPascalCase: JSONDecoder.KeyDecodingStrategy {
         return .custom { keys -> CodingKey in
