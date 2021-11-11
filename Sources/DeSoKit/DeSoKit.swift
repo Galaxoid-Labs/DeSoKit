@@ -52,7 +52,7 @@ public struct DeSoKit {
         public static func fetch<T: DeSoPostRequest, R: Decodable>(_ request: T) async throws -> R {
             do {
                 
-                let req = try DeSoKit.GetPostRequest(withURL: T.endpoint, request: request)
+                let req = try DeSoKit.buildPostRequest(withURL: T.endpoint, request: request)
                 let (data, res) = try await session.data(for: req)
                 
                 guard let response = res as? HTTPURLResponse else {
@@ -77,7 +77,7 @@ public struct DeSoKit {
     
     public struct Transaction {}
     
-    static func GetPostRequest<T: Encodable>(withURL url: URL, request: T) throws -> URLRequest {
+    static func buildPostRequest<T: Encodable>(withURL url: URL, request: T) throws -> URLRequest {
         var req = URLRequest(url: url)
         req.addValue("application/json", forHTTPHeaderField: "Content-Type")
         req.addValue("application/json", forHTTPHeaderField: "Accept")
