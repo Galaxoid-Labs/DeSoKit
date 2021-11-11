@@ -1,7 +1,7 @@
 name: Swift
 
 env:
-  DEVELOPER_DIR: /Applications/Xcode_13.0.app/Contents/Developer
+  DEVELOPER_DIR: /Applications/Xcode_13.1.app
 
 on:
   push:
@@ -12,7 +12,7 @@ on:
 jobs:
   build:
 
-    runs-on: macos-latest
+    runs-on: macos-12
 
     steps:
     - uses: actions/checkout@v2
