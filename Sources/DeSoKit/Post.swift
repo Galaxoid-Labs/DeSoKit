@@ -120,7 +120,7 @@ public extension DeSoKit.Post {
         }
         
         public var date: Date {
-            return Date(timeIntervalSince1970: TimeInterval(self.timestampNanos))
+            return Date(timeIntervalSince1970: TimeInterval(self.timestampNanos / 1_000_000_000))
         }
         
         public let postHashHex: String
