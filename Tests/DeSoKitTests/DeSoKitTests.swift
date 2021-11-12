@@ -116,5 +116,15 @@ final class DeSoKitTests: XCTestCase {
             XCTFail("\(error)")
         }
     }
+    
+    func testNotifications() async throws {
+        do {
+            let request = NotificationsRequest(publicKeyBase58Check: "BC1YLg7h8v4kQD1Cw3utW2U5RY2FQiLapc6BLjiWx98LyXSJC7yZcZu")
+            let result: NotificationsResponse = try await DeSoKit.Api.fetch(request)
+            XCTAssertNotNil(result)
+        } catch {
+            XCTFail("\(error)")
+        }
+    }
 
 }

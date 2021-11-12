@@ -75,8 +75,6 @@ public struct DeSoKit {
         
     }
     
-    public struct Transaction {}
-    
     static func buildPostRequest<T: Encodable>(withURL url: URL, request: T) throws -> URLRequest {
         var req = URLRequest(url: url)
         req.addValue("application/json", forHTTPHeaderField: "Content-Type")
