@@ -373,6 +373,6 @@ public extension DeSoKit.User {
         public let hasPurchased: Bool
         public let balanceNanos: UInt64
         public let netBalanceInMempool: UInt64
-        public let profileEntryResponse: ProfileEntry
+        public let profileEntryResponse: ProfileEntry?
     }
 }

@@ -10,9 +10,7 @@ import Foundation
 public typealias AppStateRequest = DeSoKit.General.AppStateRequest
 public typealias ExchangeRateRequest = DeSoKit.General.ExchangeRateRequest
 public typealias HealthCheckRequest = DeSoKit.General.HealthCheckRequest
-public typealias IndexRequest = DeSoKit.General.IndexRequest
 
-public typealias IndexResponse = String
 public typealias HealthCheckResponse = String
 public typealias ExchangeRateResponse = DeSoKit.General.ExchangeRateResponse
 public typealias AppStateResponse = DeSoKit.General.AppStateResponse
@@ -23,16 +21,6 @@ public extension DeSoKit {
 
 // MARK: - Requests
 public extension DeSoKit.General {
-    
-    struct IndexRequest: DeSoGetRequest {
-        
-        // MARK: - Protocol Conformance
-        
-        public static var endpoint: URL {
-            return DeSoKit.baseURL
-                .appendingPathComponent(DeSoKit.basePath)
-        }
-    }
     
     struct HealthCheckRequest: DeSoGetRequest {
         

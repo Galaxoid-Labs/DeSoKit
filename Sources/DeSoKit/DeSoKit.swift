@@ -3,7 +3,7 @@ import Foundation
 public struct DeSoKit {
     
     public static let session = URLSession.shared
-    public static var baseURL = URL(string: "https://bitclout.com")!
+    public static var baseURL = URL(string: "https://node.deso.org")!
     public static var basePath = "api/v0"
     
     static var decoder: JSONDecoder {
@@ -60,6 +60,8 @@ public struct DeSoKit {
                 }
                 
                 if response.statusCode == 200 {
+                    print(String(data: try! JSONSerialization.data(withJSONObject: try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed), options: .prettyPrinted), encoding: .utf8 )!)
+
                     return try decoder.decode(R.self, from: data)
                 } else if let errorResponse = try? decoder.decode(DeSoKitErrorResponse.self, from: data) {
                     throw DeSoKitError.error(message: errorResponse.error)

@@ -3,13 +3,6 @@ import XCTest
 
 final class DeSoKitTests: XCTestCase {
     
-    // Using bitclout.com not sure how to get index as it returns html, etc...
-//    func testIndex() async throws {
-//        let request = IndexRequest()
-//        let result: IndexResponse = try await DeSoKit.Api.fetch(request: request)
-//        XCTAssertEqual(result, "Your BitClout node is running!\n")
-//    }
-    
     func testHealthCheck() async throws {
         do {
             let result: HealthCheckResponse = try await DeSoKit.Api.fetch(HealthCheckRequest())
