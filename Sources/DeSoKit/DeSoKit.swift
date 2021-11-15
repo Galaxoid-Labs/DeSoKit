@@ -81,7 +81,7 @@ public struct DeSoKit {
     #if os(iOS)
     public struct Identity {
         
-        public func login() async throws -> (selectedPublicKeyBase58Check: String, allLoadedPublicKeyBase58Checks: [String]) {
+        public static func login() async throws -> (selectedPublicKeyBase58Check: String, allLoadedPublicKeyBase58Checks: [String]) {
             
             return try await withCheckedThrowingContinuation({
                 (continuation: CheckedContinuation<(selectedPublicKeyBase58Check: String, allLoadedPublicKeyBase58Checks: [String]), Error>) in
@@ -102,7 +102,7 @@ public struct DeSoKit {
             
         }
         
-        public func logout(_ publicKeyBase58Check: String) throws -> [String] {
+        public static func logout(_ publicKeyBase58Check: String) throws -> [String] {
             do {
                 let identity = try DeSoIdentity.Identity()
                 return try identity.logout(publicKeyBase58Check)
@@ -111,7 +111,7 @@ public struct DeSoKit {
             }
         }
         
-        public func getLoggedInKeys() throws -> [String] {
+        public static func getLoggedInKeys() throws -> [String] {
             do {
                 let identity = try DeSoIdentity.Identity()
                 return try identity.getLoggedInKeys()
@@ -120,7 +120,7 @@ public struct DeSoKit {
             }
         }
         
-        public func removeAllKeys() throws {
+        public static func removeAllKeys() throws {
             do {
                 let identity = try DeSoIdentity.Identity()
                 try identity.removeAllKeys()
