@@ -50,7 +50,7 @@ final class DeSoKitTests: XCTestCase {
         }
     }
     
-    func testProfile() async throws {
+    func testSingleProfile() async throws {
         do {
             let request = SingleProfileRequest(publicKeyBase58Check: "BC1YLg7h8v4kQD1Cw3utW2U5RY2FQiLapc6BLjiWx98LyXSJC7yZcZu")
             let result: ProfileResponse = try await DeSoKit.Api.fetch(request)

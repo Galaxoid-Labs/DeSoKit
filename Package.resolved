@@ -1,0 +1,97 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "ASN1",
+        "repositoryURL": "https://github.com/leif-ibsen/ASN1",
+        "state": {
+          "branch": null,
+          "revision": "53e0b34a34f882386e09d10d6d00bb7e969e307f",
+          "version": "1.2.1"
+        }
+      },
+      {
+        "package": "BigInt",
+        "repositoryURL": "https://github.com/leif-ibsen/BigInt",
+        "state": {
+          "branch": null,
+          "revision": "be41ad632cbeee17a70d005d5e853f88be93fa2a",
+          "version": "1.2.8"
+        }
+      },
+      {
+        "package": "CryptoSwift",
+        "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "4b0565384d3c4c588af09e660535b2c7c9bf5b39",
+          "version": "1.4.2"
+        }
+      },
+      {
+        "package": "DeSoIdentity",
+        "repositoryURL": "https://github.com/deso-protocol/identity-swift.git",
+        "state": {
+          "branch": "main",
+          "revision": "0fdb1e9bc11fa761bd0a5f1bf9b1066a3455018d",
+          "version": null
+        }
+      },
+      {
+        "package": "KeychainAccess",
+        "repositoryURL": "https://github.com/kishikawakatsumi/KeychainAccess.git",
+        "state": {
+          "branch": null,
+          "revision": "84e546727d66f1adc5439debad16270d0fdd04e7",
+          "version": "4.2.2"
+        }
+      },
+      {
+        "package": "Base16",
+        "repositoryURL": "https://github.com/alja7dali/swift-base16.git",
+        "state": {
+          "branch": null,
+          "revision": "4e452d40d08457bce120a621231e0b9e6815a9f8",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "Base58",
+        "repositoryURL": "https://github.com/Alja7dali/swift-base58.git",
+        "state": {
+          "branch": null,
+          "revision": "1eecf184e48d2702036663c7d238aab201bb9924",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "Bits",
+        "repositoryURL": "https://github.com/alja7dali/swift-bits.git",
+        "state": {
+          "branch": null,
+          "revision": "83668ec40d877d9e0012ba93359191cfc4bf04af",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "SHA256",
+        "repositoryURL": "https://github.com/alja7dali/swift-sha256.git",
+        "state": {
+          "branch": null,
+          "revision": "758852c8a92cacb8d125e152a2134b0cf9535e8e",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "SwiftECC",
+        "repositoryURL": "https://github.com/leif-ibsen/SwiftECC",
+        "state": {
+          "branch": null,
+          "revision": "048e68db4115eb062a3d792f17bb83a2ff118be2",
+          "version": "1.1.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

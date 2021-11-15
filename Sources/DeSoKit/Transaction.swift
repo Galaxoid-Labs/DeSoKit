@@ -7,6 +7,9 @@
 
 import Foundation
 
+public typealias CreateLikeStatelessRequest = DeSoKit.Transaction.CreateLikeStatelessRequest
+
+public typealias CreateLikeStatelessResponse = DeSoKit.Transaction.CreateLikeStatelessResponse
 public typealias OutputResponse = DeSoKit.Transaction.OutputResponse
 public typealias InputResponse = DeSoKit.Transaction.InputResponse
 public typealias TransactionMetadataResponse = DeSoKit.Transaction.TransactionMetadataResponse
@@ -20,32 +23,46 @@ public extension DeSoKit {
 // MARK: - Requests
 public extension DeSoKit.Transaction {
     
-//    struct NotificationsRequest: DeSoPostRequest {
-//        public let publicKeyBase58Check: String
-//        public init(publicKeyBase58Check: String) {
-//            self.publicKeyBase58Check = publicKeyBase58Check
-//        }
-//        
-//        // MARK: - Protocol Conformance
-//        
-//        public static var endpoint: URL {
-//            return DeSoKit.baseURL
-//                .appendingPathComponent(DeSoKit.basePath)
-//                .appendingPathComponent("get-notifications")
-//        }
-//    }
+    
+    struct CreateLikeStatelessRequest: DeSoPostRequest {
+
+        
+        public let readerPublicKeyBase58Check: String
+        public let likedPostHashHex: String
+        public let isUnlike: Bool
+        public let minFeeRateNanosPerKB: UInt64
+        //TransactionFees []TransactionFee `safeForLogging:"true"`
+        
+        // MARK: - Protocol Conformance
+
+        public static var endpoint: URL {
+            return DeSoKit.baseURL
+                .appendingPathComponent(DeSoKit.basePath)
+                .appendingPathComponent("create-like-stateless")
+        }
+        
+        public init(readerPublicKeyBase58Check: String, likedPostHashHex: String,
+                    isUnlike: Bool = false, minFeeRateNanosPerKB: UInt64 = 1000) {
+            self.readerPublicKeyBase58Check = readerPublicKeyBase58Check
+            self.likedPostHashHex = likedPostHashHex
+            self.isUnlike = isUnlike
+            self.minFeeRateNanosPerKB = minFeeRateNanosPerKB
+        }
+
+    }
     
 }
 
 // MARK: - Responses
 public extension DeSoKit.Transaction {
     
-//    struct NotificationsResponse: Codable {
-//        //public let Notifications: [TransactionMetadataResponse]
-//        public let profilesByPublicKey: [String: ProfileEntry]
-//        public let postsByHash: [String: PostEntry]
-//        public let lastSeenIndex: Int64
-//    }
+    struct CreateLikeStatelessResponse: Codable {
+        public let totalInputNanos: UInt64
+        public let changeAmountNanos: UInt64
+        public let feeNanos: UInt64
+        //public let Transaction       *lib.MsgDeSoTxn // TODO:
+        public let transactionHex: String
+    }
     
     struct OutputResponse: Codable {
         public let publicKeyBase58Check: String

@@ -1,4 +1,5 @@
 import Foundation
+import DeSoIdentity
 
 public struct DeSoKit {
     
@@ -76,6 +77,60 @@ public struct DeSoKit {
         }
         
     }
+    
+    #if os(iOS)
+    public struct Identity {
+        
+        public func login() async throws -> (selectedPublicKeyBase58Check: String, allLoadedPublicKeyBase58Checks: [String]) {
+            
+            return try await withCheckedThrowingContinuation({
+                (continuation: CheckedContinuation<(selectedPublicKeyBase58Check: String, allLoadedPublicKeyBase58Checks: [String]), Error>) in
+                do {
+                    let identity = try DeSoIdentity.Identity()
+                    identity.login { response in
+                        switch response {
+                        case .success(let selectedPublicKey, let allLoadedPublicKeys):
+                            continuation.resume(returning: (selectedPublicKeyBase58Check: selectedPublicKey, allLoadedPublicKeyBase58Checks: allLoadedPublicKeys))
+                        case .failed(let error):
+                            continuation.resume(throwing: error)
+                        }
+                    }
+                } catch {
+                    continuation.resume(throwing: error)
+                }
+            })
+            
+        }
+        
+        public func logout(_ publicKeyBase58Check: String) throws -> [String] {
+            do {
+                let identity = try DeSoIdentity.Identity()
+                return try identity.logout(publicKeyBase58Check)
+            } catch {
+                throw error
+            }
+        }
+        
+        public func getLoggedInKeys() throws -> [String] {
+            do {
+                let identity = try DeSoIdentity.Identity()
+                return try identity.getLoggedInKeys()
+            } catch {
+                throw error
+            }
+        }
+        
+        public func removeAllKeys() throws {
+            do {
+                let identity = try DeSoIdentity.Identity()
+                try identity.removeAllKeys()
+            } catch {
+                throw error
+            }
+        }
+        
+    }
+    #endif
     
     static func buildPostRequest<T: Encodable>(withURL url: URL, request: T) throws -> URLRequest {
         var req = URLRequest(url: url)
