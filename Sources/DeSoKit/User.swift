@@ -34,7 +34,7 @@ public extension DeSoKit {
 public extension DeSoKit.User {
     
     struct UsersStatelessRequest: DeSoPostRequest {
-        
+
         // MARK: - Properties
         
         public let publicKeysBase58Check: [String]
@@ -46,6 +46,11 @@ public extension DeSoKit.User {
             return DeSoKit.baseURL
                 .appendingPathComponent(DeSoKit.basePath)
                 .appendingPathComponent("get-users-stateless")
+        }
+        
+        public init(publicKeysBase58Check: [String], skipForLeaderboard: Bool = false) {
+            self.publicKeysBase58Check = publicKeysBase58Check
+            self.skipForLeaderboard = skipForLeaderboard
         }
     }
     
