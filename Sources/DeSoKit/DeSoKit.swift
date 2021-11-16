@@ -129,6 +129,15 @@ public struct DeSoKit {
             }
         }
         
+        public static func sign(_ transaction: UnsignedTransaction) throws -> String {
+            do {
+                let identity = try DeSoIdentity.Identity()
+                return try identity.sign(transaction)
+            } catch {
+                throw error
+            }
+        }
+        
     }
     #endif
     

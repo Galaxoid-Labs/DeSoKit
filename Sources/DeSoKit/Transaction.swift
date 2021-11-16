@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import DeSoIdentity
 
 public typealias CreateLikeStatelessRequest = DeSoKit.Transaction.CreateLikeStatelessRequest
 
@@ -15,6 +16,7 @@ public typealias InputResponse = DeSoKit.Transaction.InputResponse
 public typealias TransactionMetadataResponse = DeSoKit.Transaction.TransactionMetadataResponse
 public typealias TransactionResponse = DeSoKit.Transaction.TransactionResponse
 
+public typealias UnsignedTransaction = DeSoIdentity.UnsignedTransaction
 
 public extension DeSoKit {
     struct Transaction {}
