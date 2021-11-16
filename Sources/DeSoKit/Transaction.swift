@@ -9,6 +9,7 @@ import Foundation
 import DeSoIdentity
 
 public typealias CreateLikeStatelessRequest = DeSoKit.Transaction.CreateLikeStatelessRequest
+public typealias SubmitTransactionRequest = DeSoKit.Transaction.SubmitTransactionRequest
 
 public typealias CreateLikeStatelessResponse = DeSoKit.Transaction.CreateLikeStatelessResponse
 public typealias OutputResponse = DeSoKit.Transaction.OutputResponse
@@ -53,6 +54,23 @@ public extension DeSoKit.Transaction {
 
     }
     
+    struct SubmitTransactionRequest: DeSoPostRequest {
+
+        public let transactionHex: String
+        
+        // MARK: - Protocol Conformance
+
+        public static var endpoint: URL {
+            return DeSoKit.baseURL
+                .appendingPathComponent(DeSoKit.basePath)
+                .appendingPathComponent("submit-transaction")
+        }
+        
+        public init(transactionHex: String) {
+            self.transactionHex = transactionHex
+        }
+    }
+    
 }
 
 // MARK: - Responses
@@ -66,6 +84,12 @@ public extension DeSoKit.Transaction {
         public let transactionHex: String
     }
     
+    struct SubmitTransactionResponse: Codable {
+        //Transaction *lib.MsgDeSoTxn // TODO:
+        public let txnHashHex: String
+        public let postEntryResponse: PostEntry?
+    }
+    
     struct OutputResponse: Codable {
         public let publicKeyBase58Check: String
         public let amountNanos: UInt64
@@ -77,7 +101,7 @@ public extension DeSoKit.Transaction {
     }
     
     struct TransactionMetadataResponse: Codable {
-        //public let metadata           *lib.TransactionMetadata
+        //public let metadata           *lib.TransactionMetadata // TODO:
         public let txnOutputResponses: [OutputResponse]
         public let transactionResponse: TransactionResponse
         public let index: Int64
@@ -105,7 +129,7 @@ public extension DeSoKit.Transaction {
         // into the "block" endpoint.
         public let blockHashHex: String?
 
-        //public let transactionMetadata *lib.TransactionMetadata `json:",omitempty"`
+        //public let transactionMetadata *lib.TransactionMetadata `json:",omitempty"`  // TODO:
     }
     
 }
