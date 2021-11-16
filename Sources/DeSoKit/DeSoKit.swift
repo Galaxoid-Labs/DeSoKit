@@ -86,7 +86,7 @@ public struct DeSoKit {
             return try await withCheckedThrowingContinuation({
                 (continuation: CheckedContinuation<(selectedPublicKeyBase58Check: String, allLoadedPublicKeyBase58Checks: [String]), Error>) in
                 do {
-                    let identity = try DeSoIdentity.Identity()
+                    let identity = try DeSoIdentity.Identity(nodeBaseURL: DeSoKit.baseURL.absoluteString)
                     identity.login { response in
                         switch response {
                         case .success(let selectedPublicKey, let allLoadedPublicKeys):
@@ -104,7 +104,7 @@ public struct DeSoKit {
         
         public static func logout(_ publicKeyBase58Check: String) throws -> [String] {
             do {
-                let identity = try DeSoIdentity.Identity()
+                let identity = try DeSoIdentity.Identity(nodeBaseURL: DeSoKit.baseURL.absoluteString)
                 return try identity.logout(publicKeyBase58Check)
             } catch {
                 throw error
@@ -113,7 +113,7 @@ public struct DeSoKit {
         
         public static func getLoggedInKeys() throws -> [String] {
             do {
-                let identity = try DeSoIdentity.Identity()
+                let identity = try DeSoIdentity.Identity(nodeBaseURL: DeSoKit.baseURL.absoluteString)
                 return try identity.getLoggedInKeys()
             } catch {
                 throw error
@@ -122,20 +122,32 @@ public struct DeSoKit {
         
         public static func removeAllKeys() throws {
             do {
-                let identity = try DeSoIdentity.Identity()
+                let identity = try DeSoIdentity.Identity(nodeBaseURL: DeSoKit.baseURL.absoluteString)
                 try identity.removeAllKeys()
             } catch {
                 throw error
             }
         }
         
-        public static func sign(_ transaction: UnsignedTransaction) throws -> String {
-            do {
-                let identity = try DeSoIdentity.Identity()
-                return try identity.sign(transaction)
-            } catch {
-                throw error
-            }
+        public static func sign(_ transaction: UnsignedTransaction) async throws -> String {
+
+            return try await withCheckedThrowingContinuation({
+                (continuation: CheckedContinuation<String, Error>) in
+                do {
+                    let identity = try DeSoIdentity.Identity(nodeBaseURL: DeSoKit.baseURL.absoluteString)
+                    try identity.sign(transaction) { response in
+                        switch response {
+                        case .success(let signature):
+                            continuation.resume(returning: signature)
+                        case .failed(let error):
+                            continuation.resume(throwing: error)
+                        }
+                    }
+                } catch {
+                    continuation.resume(throwing: error)
+                }
+            })
+            
         }
         
     }

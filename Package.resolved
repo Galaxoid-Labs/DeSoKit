@@ -32,8 +32,8 @@
         "package": "DeSoIdentity",
         "repositoryURL": "https://github.com/deso-protocol/identity-swift.git",
         "state": {
-          "branch": "main",
-          "revision": "0fdb1e9bc11fa761bd0a5f1bf9b1066a3455018d",
+          "branch": "finishing-touches",
+          "revision": "4d63e7c17aeec4edee3caf0e5449ba5f6d1e5aab",
           "version": null
         }
       },
