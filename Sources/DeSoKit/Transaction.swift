@@ -12,6 +12,7 @@ public typealias CreateLikeStatelessRequest = DeSoKit.Transaction.CreateLikeStat
 public typealias SubmitTransactionRequest = DeSoKit.Transaction.SubmitTransactionRequest
 
 public typealias CreateLikeStatelessResponse = DeSoKit.Transaction.CreateLikeStatelessResponse
+public typealias SubmitTransactionResponse = DeSoKit.Transaction.SubmitTransactionResponse
 public typealias OutputResponse = DeSoKit.Transaction.OutputResponse
 public typealias InputResponse = DeSoKit.Transaction.InputResponse
 public typealias TransactionMetadataResponse = DeSoKit.Transaction.TransactionMetadataResponse
