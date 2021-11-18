@@ -6,6 +6,7 @@ public struct DeSoKit {
     public static let session = URLSession.shared
     public static var baseURL = URL(string: "https://node.deso.org")!
     public static var basePath = "api/v0"
+    public static var debug = false
     
     static var decoder: JSONDecoder {
         let decoder = JSONDecoder()
@@ -30,6 +31,9 @@ public struct DeSoKit {
                 }
                 
                 if response.statusCode == 200 {
+                    if DeSoKit.debug {
+                        print(String(data: try JSONSerialization.data(withJSONObject: try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed), options: .prettyPrinted), encoding: .utf8 ) ?? "")
+                    }
                     if R.self is String.Type {
                         guard let responseObject = String(decoding: data, as: UTF8.self) as? R else {
                             throw DeSoKitError.error(message: "Unable to decode Response")
@@ -61,8 +65,9 @@ public struct DeSoKit {
                 }
                 
                 if response.statusCode == 200 {
-                    print(String(data: try! JSONSerialization.data(withJSONObject: try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed), options: .prettyPrinted), encoding: .utf8 )!)
-
+                    if DeSoKit.debug {
+                        print(String(data: try JSONSerialization.data(withJSONObject: try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed), options: .prettyPrinted), encoding: .utf8 ) ?? "")
+                    }
                     return try decoder.decode(R.self, from: data)
                 } else if let errorResponse = try? decoder.decode(DeSoKitErrorResponse.self, from: data) {
                     throw DeSoKitError.error(message: errorResponse.error)
