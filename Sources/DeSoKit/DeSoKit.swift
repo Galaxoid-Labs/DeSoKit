@@ -8,13 +8,13 @@ public struct DeSoKit {
     public static var basePath = "api/v0"
     public static var debug = false
     
-    static var decoder: JSONDecoder {
+    public static var decoder: JSONDecoder {
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromPascalCase
         return decoder
     }
     
-    static var encoder: JSONEncoder {
+    public static var encoder: JSONEncoder {
         let encoder = JSONEncoder()
         encoder.keyEncodingStrategy = .convertToPascalCase
         return encoder
