@@ -370,6 +370,36 @@ public extension DeSoKit.User {
                 .appendingPathComponent(publicKeyBase58Check)
         }
         
+        // MARK: - Helpers
+        
+        public var coinPrice: Double {
+            return Double(coinPriceDeSoNanos) * 0.0000001
+        }
+        
+        public func coinPriceFormatted(currencyCode: String = "usd") -> String {
+            return coinPrice.formatted(.currency(code: currencyCode))
+        }
+        
+        public var coinsInCirculation: Double {
+            return Double(coinEntry?.coinsInCirculationNanos ?? .zero) * 0.000001
+        }
+        
+        public var usdLocked: Double {
+            return Double(coinEntry?.deSoLockedNanos ?? .zero) * 0.000001
+        }
+        
+        public func usdLockedFormatted() -> String {
+            return usdLocked.formatted(.currency(code: "usd"))
+        }
+        
+        public var usdMarketCap: Double {
+            return coinPrice * (Double(coinEntry?.coinsInCirculationNanos ?? .zero) * 0.000001)
+        }
+        
+        public func usdMarketCapFormatted() -> String {
+            return usdMarketCap.formatted(.currency(code: "usd"))
+        }
+        
     }
     
     struct BalanceEntry: Codable {
@@ -382,10 +412,10 @@ public extension DeSoKit.User {
     }
     
     struct CoinEntry: Codable {
-        public let CreatorBasisPoints: UInt64
-        public let DeSoLockedNanos: UInt64
-        public let NumberOfHolders: UInt64
-        public let CoinsInCirculationNanos: UInt64
-        public let CoinWatermarkNanos: UInt64
+        public let creatorBasisPoints: UInt64
+        public let deSoLockedNanos: UInt64
+        public let numberOfHolders: UInt64
+        public let coinsInCirculationNanos: UInt64
+        public let coinWatermarkNanos: UInt64
     }
 }
