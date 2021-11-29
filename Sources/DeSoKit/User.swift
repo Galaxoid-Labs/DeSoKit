@@ -381,11 +381,11 @@ public extension DeSoKit.User {
         }
         
         public var coinsInCirculation: Double {
-            return Double(coinEntry?.coinsInCirculationNanos ?? .zero) * 0.000001
+            return Double(coinEntry?.coinsInCirculationNanos ?? .zero) * 0.000000001
         }
         
         public var usdLocked: Double {
-            return Double(coinEntry?.deSoLockedNanos ?? .zero) * 0.000001
+            return Double(coinEntry?.deSoLockedNanos ?? .zero) * 0.0000001
         }
         
         public func usdLockedFormatted() -> String {
@@ -393,7 +393,7 @@ public extension DeSoKit.User {
         }
         
         public var usdMarketCap: Double {
-            return coinPrice * (Double(coinEntry?.coinsInCirculationNanos ?? .zero) * 0.000001)
+            return coinPrice * coinsInCirculation
         }
         
         public func usdMarketCapFormatted() -> String {
