@@ -351,7 +351,7 @@ public extension DeSoKit.User {
         public let isVerified: Bool
         public let comments: [PostEntry]?
         public let posts: [PostEntry]?
-        //public let CoinEntry lib.CoinEntry TODO:
+        public let coinEntry: CoinEntry?
         public let coinPriceDeSoNanos: UInt64
         public let usersThatHODL: [BalanceEntry]?
         public let isFeaturedTutorialWellKnownCreator: Bool
@@ -379,5 +379,13 @@ public extension DeSoKit.User {
         public let balanceNanos: UInt64
         public let netBalanceInMempool: UInt64
         public let profileEntryResponse: ProfileEntry?
+    }
+    
+    struct CoinEntry: Codable {
+        public let CreatorBasisPoints: UInt64
+        public let DeSoLockedNanos: UInt64
+        public let NumberOfHolders: UInt64
+        public let CoinsInCirculationNanos: UInt64
+        public let CoinWatermarkNanos: UInt64
     }
 }
