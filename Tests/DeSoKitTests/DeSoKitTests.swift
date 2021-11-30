@@ -62,7 +62,7 @@ final class DeSoKitTests: XCTestCase {
     
     func testHODLers() async throws {
         do {
-            let request = HODLersRequest(publicKeyBase58Check: "BC1YLg7h8v4kQD1Cw3utW2U5RY2FQiLapc6BLjiWx98LyXSJC7yZcZu")
+            let request = HODLersRequest(publicKeyBase58Check: "BC1YLg7h8v4kQD1Cw3utW2U5RY2FQiLapc6BLjiWx98LyXSJC7yZcZu", fetchHodlings: true, fetchAll: true)
             let result: HODLersResponse = try await DeSoKit.Api.fetch(request)
             XCTAssertNotNil(result)
         } catch {

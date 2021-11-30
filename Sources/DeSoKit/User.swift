@@ -402,13 +402,19 @@ public extension DeSoKit.User {
         
     }
     
-    struct BalanceEntry: Codable {
+    struct BalanceEntry: Codable, Identifiable {
         public let hODLerPublicKeyBase58Check: String
         public let creatorPublicKeyBase58Check: String
         public let hasPurchased: Bool
         public let balanceNanos: UInt64
         public let netBalanceInMempool: UInt64
         public let profileEntryResponse: ProfileEntry?
+        
+        // MARK: - Protocol Conformance
+        
+        public var id: String {
+            return self.hODLerPublicKeyBase58Check + self.creatorPublicKeyBase58Check
+        }
         
         // MARK: - Helpers
         
