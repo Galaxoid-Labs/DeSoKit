@@ -409,6 +409,12 @@ public extension DeSoKit.User {
         public let balanceNanos: UInt64
         public let netBalanceInMempool: UInt64
         public let profileEntryResponse: ProfileEntry?
+        
+        // MARK: - Helpers
+        
+        public var balance: Double {
+            return Double(balanceNanos) * 0.000000001
+        }
     }
     
     struct CoinEntry: Codable {
