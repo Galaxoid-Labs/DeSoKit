@@ -147,7 +147,7 @@ public extension DeSoKit.Post {
     }
     
     struct PostsForPublicKeyResponse: Codable {
-        public let posts: [PostEntry]
+        public let posts: [PostEntry]?
         public let lastPostHashHex: String
     }
     
