@@ -98,13 +98,18 @@ public extension DeSoKit.General {
     
     struct AppStateResponse: Codable {
         
-        public let amplitudeKey: String
-        public let amplitudeDomain: String
+        public struct NodeInfo: Codable {
+            let uRL: String
+            public var url: String {  // Vanity property :)
+                return uRL
+            }
+            public let name: String
+            public let owner: String
+        }
+        
         public let minSatoshisBurnedForProfileCreation: UInt64
         public let blockHeight: UInt32
         public let isTestnet: Bool
-        public let supportEmail: String
-        public let showProcessingSpinners: Bool
         public let hasStarterDeSoSeed: Bool
         public let hasTwilioAPIKey: Bool
         public let createProfileFeeNanos: UInt64
@@ -122,6 +127,8 @@ public extension DeSoKit.General {
         public let jumioDeSoNanos: UInt64
         //public let TransactionFeeMap: [String: []] // TODO:
         public let buyETHAddress: String
+        public let nodes: [String: NodeInfo]?
+
     }
     
 }

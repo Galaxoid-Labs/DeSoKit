@@ -92,7 +92,7 @@ final class DeSoKitTests: XCTestCase {
     
     func testPostsStateless() async throws {
         do {
-            let request = PostsStatelessRequest()
+            let request = PostsStatelessRequest(postContent: "#010", numToFetch: 10000, getPostsForGlobalWhitelist: false)
             let result: PostsStatelessReponse = try await DeSoKit.Api.fetch(request)
             XCTAssertNotNil(result)
         } catch {
@@ -104,6 +104,16 @@ final class DeSoKitTests: XCTestCase {
         do {
             let request = SinglePostRequest(postHashHex: "6a2a883955a5a3842343460224a8b2b588335142600a1516180ae33e81e85d74")
             let result: SinglePostReponse = try await DeSoKit.Api.fetch(request)
+            XCTAssertNotNil(result)
+        } catch {
+            XCTFail("\(error)")
+        }
+    }
+    
+    func testPostsForPublicKey() async throws {
+        do {
+            let request = PostsForPublicKeyRequest(publicKeyBase58Check: "BC1YLg7h8v4kQD1Cw3utW2U5RY2FQiLapc6BLjiWx98LyXSJC7yZcZu")
+            let result: PostsForPublicKeyResponse = try await DeSoKit.Api.fetch(request)
             XCTAssertNotNil(result)
         } catch {
             XCTFail("\(error)")

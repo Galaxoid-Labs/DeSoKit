@@ -9,9 +9,11 @@ import Foundation
 
 public typealias PostsStatelessRequest = DeSoKit.Post.PostsStatelessRequest
 public typealias SinglePostRequest = DeSoKit.Post.SinglePostRequest
+public typealias PostsForPublicKeyRequest = DeSoKit.Post.PostsForPublicKeyRequest
 
 public typealias PostsStatelessReponse = DeSoKit.Post.PostsStatelessResponse
 public typealias SinglePostReponse = DeSoKit.Post.SinglePostResponse
+public typealias PostsForPublicKeyResponse = DeSoKit.Post.PostsForPublicKeyResponse
 
 public typealias PostEntry = DeSoKit.Post.PostEntry
 
@@ -88,7 +90,8 @@ public extension DeSoKit.Post {
                 .appendingPathComponent("get-single-post")
         }
         
-        public init(postHashHex: String, fetchParents: Bool = false, commentOffset: UInt32 = 0, commentLimit: UInt32 = 0, readerPublicKeyBase58Check: String = "", addGlobalFeedBool: Bool = false) {
+        public init(postHashHex: String, fetchParents: Bool = false, commentOffset: UInt32 = 0,
+                    commentLimit: UInt32 = 0, readerPublicKeyBase58Check: String = "", addGlobalFeedBool: Bool = false) {
             self.postHashHex = postHashHex
             self.fetchParents = fetchParents
             self.commentOffset = commentOffset
@@ -96,6 +99,38 @@ public extension DeSoKit.Post {
             self.readerPublicKeyBase58Check = readerPublicKeyBase58Check
             self.addGlobalFeedBool = addGlobalFeedBool
         }
+    }
+    
+    struct PostsForPublicKeyRequest: DeSoPostRequest {
+
+        // MARK: - Properties
+        
+        public let publicKeyBase58Check: String
+        public let username: String
+        public let readerPublicKeyBase58Check: String
+        public let lastPostHashHex: String
+        public let numToFetch: UInt64
+        public let mediaRequired: Bool
+        
+        // MARK: - Protocol Conformance
+        
+        public static var endpoint: URL {
+            return DeSoKit.baseURL
+                .appendingPathComponent(DeSoKit.basePath)
+                .appendingPathComponent("get-posts-for-public-key")
+        }
+        
+        public init(publicKeyBase58Check: String = "", username: String = "",
+                    readerPublicKeyBase58Check: String = "", lastPostHashHex: String = "",
+                    numToFetch: UInt64 = 20, mediaRequired: Bool = false) {
+            self.publicKeyBase58Check = publicKeyBase58Check
+            self.username = username
+            self.readerPublicKeyBase58Check = readerPublicKeyBase58Check
+            self.lastPostHashHex = lastPostHashHex
+            self.numToFetch = numToFetch
+            self.mediaRequired = mediaRequired
+        }
+        
     }
     
 }
@@ -109,6 +144,11 @@ public extension DeSoKit.Post {
     
     struct SinglePostResponse: Codable {
         public let postFound: PostEntry
+    }
+    
+    struct PostsForPublicKeyResponse: Codable {
+        public let posts: [PostEntry]
+        public let lastPostHashHex: String
     }
     
 }
@@ -133,7 +173,7 @@ public extension DeSoKit.Post {
         public let isHidden: Bool
         public let confirmationBlockHeight: UInt32
         public let inMempool: Bool
-        public let profileEntryResponse: ProfileEntry
+        public let profileEntryResponse: ProfileEntry?
         public let comments: [PostEntry]?
         public let likeCount: UInt64
         public let diamondCount: UInt64

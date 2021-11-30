@@ -4,7 +4,8 @@ import DeSoIdentity
 public struct DeSoKit {
     
     public static let session = URLSession.shared
-    public static var baseURL = URL(string: "https://node.deso.org")!
+    //public static var baseURL = URL(string: "https://node.deso.org")!
+    public static var baseURL = URL(string: "https://bitclout.com")!
     public static var basePath = "api/v0"
     public static var debug = false
     
