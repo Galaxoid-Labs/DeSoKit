@@ -173,7 +173,7 @@ public extension DeSoKit.Post {
         public let isHidden: Bool
         public let confirmationBlockHeight: UInt32
         public let inMempool: Bool
-        public let profileEntryResponse: ProfileEntry?
+        public var profileEntryResponse: ProfileEntry?
         public let comments: [PostEntry]?
         public let likeCount: UInt64
         public let diamondCount: UInt64
