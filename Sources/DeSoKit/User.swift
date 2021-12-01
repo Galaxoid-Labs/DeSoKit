@@ -262,7 +262,7 @@ public extension DeSoKit.User {
             public let totalDiamonds: UInt64
             public let highestDiamondLevel: UInt64
             public let diamondLevelMap: [String: UInt64]
-            public let profileEntryResponse: ProfileEntry
+            public let profileEntryResponse: ProfileEntry?
         }
         
         public let diamondSenderSummaryResponses: [DiamondsSenderSummary]

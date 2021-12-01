@@ -10,10 +10,12 @@ import Foundation
 public typealias PostsStatelessRequest = DeSoKit.Post.PostsStatelessRequest
 public typealias SinglePostRequest = DeSoKit.Post.SinglePostRequest
 public typealias PostsForPublicKeyRequest = DeSoKit.Post.PostsForPublicKeyRequest
+public typealias LikesForPostRequest = DeSoKit.Post.LikesForPostRequest
 
 public typealias PostsStatelessReponse = DeSoKit.Post.PostsStatelessResponse
 public typealias SinglePostReponse = DeSoKit.Post.SinglePostResponse
 public typealias PostsForPublicKeyResponse = DeSoKit.Post.PostsForPublicKeyResponse
+public typealias LikesForPostResponse = DeSoKit.Post.LikesForPostResponse
 
 public typealias PostEntry = DeSoKit.Post.PostEntry
 
@@ -133,6 +135,33 @@ public extension DeSoKit.Post {
         
     }
     
+    
+    struct LikesForPostRequest: DeSoPostRequest {
+
+        // MARK: - Properties
+
+        public let postHashHex: String
+        public let offset: UInt32
+        public let limit: UInt32
+        public let readerPublicKeyBase58Check: String
+        
+        // MARK: - Protocol Conformance
+        
+        public static var endpoint: URL {
+            return DeSoKit.baseURL
+                .appendingPathComponent(DeSoKit.basePath)
+                .appendingPathComponent("get-likes-for-post")
+        }
+        
+        public init(postHashHex: String, offset: UInt32 = 0, limit: UInt32 = 50, readerPublicKeyBase58Check: String = "") {
+            self.postHashHex = postHashHex
+            self.offset = offset
+            self.limit = limit
+            self.readerPublicKeyBase58Check = readerPublicKeyBase58Check
+        }
+        
+    }
+    
 }
 
 // MARK: - Responses
@@ -149,6 +178,10 @@ public extension DeSoKit.Post {
     struct PostsForPublicKeyResponse: Codable {
         public let posts: [PostEntry]?
         public let lastPostHashHex: String
+    }
+    
+    struct LikesForPostResponse: Codable {
+        public let likers: [ProfileEntry]
     }
     
 }
