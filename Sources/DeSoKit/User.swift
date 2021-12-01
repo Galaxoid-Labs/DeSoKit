@@ -381,11 +381,11 @@ public extension DeSoKit.User {
         }
         
         public var coinsInCirculation: Double {
-            return Double(coinEntry?.coinsInCirculationNanos ?? .zero) * 0.000000001
+            return coinEntry?.coinsInCirculation ?? .zero
         }
         
         public var usdLocked: Double {
-            return Double(coinEntry?.deSoLockedNanos ?? .zero) * 0.0000001
+            return coinEntry?.usdLocked ?? .zero
         }
         
         public func usdLockedFormatted() -> String {
@@ -398,6 +398,14 @@ public extension DeSoKit.User {
         
         public func usdMarketCapFormatted() -> String {
             return usdMarketCap.formatted(.currency(code: "usd"))
+        }
+        
+        public var createBasisPointsPercent: Double {
+            return coinEntry?.creatorBasisPointsPercent ?? .zero
+        }
+        
+        public var creatorBasesPercentFormatted: String {
+            return coinEntry?.creatorBasesPercentFormatted ?? Double(0).formatted(.percent)
         }
         
     }
@@ -429,5 +437,22 @@ public extension DeSoKit.User {
         public let numberOfHolders: UInt64
         public let coinsInCirculationNanos: UInt64
         public let coinWatermarkNanos: UInt64
+        
+        // MARK: - Helpers
+        public var coinsInCirculation: Double {
+            return Double(coinsInCirculationNanos) * 0.000000001
+        }
+        
+        public var usdLocked: Double {
+            return Double(deSoLockedNanos) * 0.0000001
+        }
+        
+        public var creatorBasisPointsPercent: Double {
+            return Double(creatorBasisPoints) * 0.0001
+        }
+        
+        public var creatorBasesPercentFormatted: String {
+            return creatorBasisPointsPercent.formatted(.percent)
+        }
     }
 }
