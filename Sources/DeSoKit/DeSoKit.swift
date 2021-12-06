@@ -87,17 +87,17 @@ public struct DeSoKit {
     #if os(iOS)
     public struct Identity {
         
-        public static func login() async throws -> (selectedPublicKeyBase58Check: String, allLoadedPublicKeyBase58Checks: [String]) {
+        public static func login() async throws -> DeSoIdentity.Identity.LoginResponse {
             
             return try await withCheckedThrowingContinuation({
-                (continuation: CheckedContinuation<(selectedPublicKeyBase58Check: String, allLoadedPublicKeyBase58Checks: [String]), Error>) in
+                (continuation: CheckedContinuation<DeSoIdentity.Identity.LoginResponse, Error>) in
                 do {
                     let identity = try DeSoIdentity.Identity(nodeBaseURL: DeSoKit.baseURL.absoluteString)
                     identity.login { response in
                         switch response {
-                        case .success(let selectedPublicKey, let allLoadedPublicKeys):
-                            continuation.resume(returning: (selectedPublicKeyBase58Check: selectedPublicKey, allLoadedPublicKeyBase58Checks: allLoadedPublicKeys))
-                        case .failed(let error):
+                        case .success(let res):
+                            continuation.resume(returning: res)
+                        case .failure(let error):
                             continuation.resume(throwing: error)
                         }
                     }
@@ -145,7 +145,7 @@ public struct DeSoKit {
                         switch response {
                         case .success(let signature):
                             continuation.resume(returning: signature)
-                        case .failed(let error):
+                        case .failure(let error):
                             continuation.resume(throwing: error)
                         }
                     }

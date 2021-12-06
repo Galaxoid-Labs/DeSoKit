@@ -54,7 +54,6 @@ final class DeSoKitTests: XCTestCase {
         do {
             let request = SingleProfileRequest(publicKeyBase58Check: "BC1YLg7h8v4kQD1Cw3utW2U5RY2FQiLapc6BLjiWx98LyXSJC7yZcZu")
             let result: ProfileResponse = try await DeSoKit.Api.fetch(request)
-            print(result.profile.createBasisPoints.formatted(.percent))
             XCTAssertNotNil(result)
         } catch {
             XCTFail("\(error)")
