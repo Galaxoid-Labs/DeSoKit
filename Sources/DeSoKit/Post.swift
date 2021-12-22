@@ -299,7 +299,7 @@ public extension DeSoKit.Post {
         public let body: String
         public let imageURLs: [String]?
         public let videoURLs: [String]?
-        public let repostedPostEntryResponse: PostEntry?
+        public var repostedPostEntryResponse: PostEntry?
         public let creatorBasisPoints: UInt64
         public let stakeMultipleBasisPoints: UInt64
         public let timestampNanos: UInt64
@@ -308,9 +308,9 @@ public extension DeSoKit.Post {
         public let inMempool: Bool
         public var profileEntryResponse: ProfileEntry?
         public let comments: [PostEntry]?
-        public let likeCount: UInt64
-        public let diamondCount: UInt64
-        public let postEntryReaderState: PostEntryReaderState?
+        public var likeCount: UInt64
+        public var diamondCount: UInt64
+        public var postEntryReaderState: PostEntryReaderState?
         public let inGlobalFeed: Bool?
         public let inHotFeed: Bool?
         public let isPinned: Bool?
@@ -368,7 +368,7 @@ public extension DeSoKit.Post {
     
     struct PostEntryReaderState: Codable {
         public let diamondLevelBestowed: UInt64
-        public let likedByReader: Bool
+        public var likedByReader: Bool
         public let repostPostHashHex: String
         public let repostedByReader: Bool
     }

@@ -299,12 +299,12 @@ public extension DeSoKit.User {
         // MARK: - Properties
 
         public let publicKeyBase58Check: String
-        public let profileEntryResponse: ProfileEntry
+        public let profileEntryResponse: ProfileEntry?
         //Utxos               []*UTXOEntryResponse ?
         public let balanceNanos: UInt64
         public let unminedBalanceNanos: UInt64
-        public let publicKeysBase58CheckFollowedByUser: [String]
-        public let usersYouHODL: [BalanceEntry]
+        public let publicKeysBase58CheckFollowedByUser: [String]?
+        public let usersYouHODL: [BalanceEntry]?
         public let usersWhoHODLYouCount: Int
         public let hasPhoneNumber: Bool
         public let canCreateProfile: Bool

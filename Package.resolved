@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/leif-ibsen/BigInt",
         "state": {
           "branch": null,
-          "revision": "69877bd2005ee85b0c3d5b330d1794dc0ee4c869",
-          "version": "1.2.9"
+          "revision": "98d27eaeb714b1f072750cd4bc91cb0d3ec27c3e",
+          "version": "1.2.11"
         }
       },
       {
@@ -32,8 +32,8 @@
         "package": "DeSoIdentity",
         "repositoryURL": "https://github.com/deso-protocol/identity-swift.git",
         "state": {
-          "branch": "finishing-touches",
-          "revision": "2d25cc5e3bb1ea4b20431805113c1a93087c88e3",
+          "branch": "rework",
+          "revision": "67446121ecb2901d7aa019839bfebb6b3ab64209",
           "version": null
         }
       },

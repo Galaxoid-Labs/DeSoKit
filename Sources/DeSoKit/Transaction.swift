@@ -18,8 +18,6 @@ public typealias InputResponse = DeSoKit.Transaction.InputResponse
 public typealias TransactionMetadataResponse = DeSoKit.Transaction.TransactionMetadataResponse
 public typealias TransactionResponse = DeSoKit.Transaction.TransactionResponse
 
-public typealias UnsignedTransaction = DeSoIdentity.UnsignedTransaction
-
 public extension DeSoKit {
     struct Transaction {}
 }
@@ -46,7 +44,7 @@ public extension DeSoKit.Transaction {
         }
         
         public init(readerPublicKeyBase58Check: String, likedPostHashHex: String,
-                    isUnlike: Bool = false, minFeeRateNanosPerKB: UInt64 = 1000) {
+                    isUnlike: Bool = false, minFeeRateNanosPerKB: UInt64 = 2000) {
             self.readerPublicKeyBase58Check = readerPublicKeyBase58Check
             self.likedPostHashHex = likedPostHashHex
             self.isUnlike = isUnlike

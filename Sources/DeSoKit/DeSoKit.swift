@@ -4,8 +4,8 @@ import DeSoIdentity
 public struct DeSoKit {
     
     public static let session = URLSession.shared
-    //public static var baseURL = URL(string: "https://node.deso.org")!
-    public static var baseURL = URL(string: "https://bitclout.com")!
+    public static var baseURL = URL(string: "https://node.deso.org")!
+    //public static var baseURL = URL(string: "https://bitclout.com")!
     public static var basePath = "api/v0"
     public static var debug = false
     
@@ -83,81 +83,6 @@ public struct DeSoKit {
         }
         
     }
-    
-    #if os(iOS)
-    public struct Identity {
-        
-        public static func login() async throws -> DeSoIdentity.Identity.LoginResponse {
-            
-            return try await withCheckedThrowingContinuation({
-                (continuation: CheckedContinuation<DeSoIdentity.Identity.LoginResponse, Error>) in
-                do {
-                    let identity = try DeSoIdentity.Identity(nodeBaseURL: DeSoKit.baseURL.absoluteString)
-                    identity.login { response in
-                        switch response {
-                        case .success(let res):
-                            continuation.resume(returning: res)
-                        case .failure(let error):
-                            continuation.resume(throwing: error)
-                        }
-                    }
-                } catch {
-                    continuation.resume(throwing: error)
-                }
-            })
-            
-        }
-        
-        public static func logout(_ publicKeyBase58Check: String) throws -> [String] {
-            do {
-                let identity = try DeSoIdentity.Identity(nodeBaseURL: DeSoKit.baseURL.absoluteString)
-                return try identity.logout(publicKeyBase58Check)
-            } catch {
-                throw error
-            }
-        }
-        
-        public static func getLoggedInKeys() throws -> [String] {
-            do {
-                let identity = try DeSoIdentity.Identity(nodeBaseURL: DeSoKit.baseURL.absoluteString)
-                return try identity.getLoggedInKeys()
-            } catch {
-                throw error
-            }
-        }
-        
-        public static func removeAllKeys() throws {
-            do {
-                let identity = try DeSoIdentity.Identity(nodeBaseURL: DeSoKit.baseURL.absoluteString)
-                try identity.removeAllKeys()
-            } catch {
-                throw error
-            }
-        }
-        
-        public static func sign(_ transaction: UnsignedTransaction) async throws -> String {
-
-            return try await withCheckedThrowingContinuation({
-                (continuation: CheckedContinuation<String, Error>) in
-                do {
-                    let identity = try DeSoIdentity.Identity(nodeBaseURL: DeSoKit.baseURL.absoluteString)
-                    try identity.sign(transaction) { response in
-                        switch response {
-                        case .success(let signature):
-                            continuation.resume(returning: signature)
-                        case .failure(let error):
-                            continuation.resume(throwing: error)
-                        }
-                    }
-                } catch {
-                    continuation.resume(throwing: error)
-                }
-            })
-            
-        }
-        
-    }
-    #endif
     
     static func buildPostRequest<T: Encodable>(withURL url: URL, request: T) throws -> URLRequest {
         var req = URLRequest(url: url)

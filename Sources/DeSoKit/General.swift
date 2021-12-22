@@ -108,7 +108,7 @@ public extension DeSoKit.General {
         }
         
         public let minSatoshisBurnedForProfileCreation: UInt64
-        public let blockHeight: UInt32
+        public let blockHeight: UInt64
         public let isTestnet: Bool
         public let hasStarterDeSoSeed: Bool
         public let hasTwilioAPIKey: Bool
@@ -125,6 +125,7 @@ public extension DeSoKit.General {
         }
         
         public let jumioDeSoNanos: UInt64
+        //public let defaultFeeRateNanosPerKB: UInt64
         //public let TransactionFeeMap: [String: []] // TODO:
         public let buyETHAddress: String
         public let nodes: [String: NodeInfo]?
